@@ -1,0 +1,30 @@
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:BinderApplication"
+             x:Class="BinderApplication.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+
+    <Application.MainPage>
+        <Shell>
+            <TabBar x:Name="Tabs">
+                <Tab Title="Match" Icon="tab_match.png">
+                    <ShellContent ContentTemplate="{DataTemplate local:Pages.Match}"/>
+                </Tab>
+                <Tab Title="Binder" Icon="tab_binder.png">
+                    <ShellContent ContentTemplate="{DataTemplate local:Pages.Binder}"/>
+                </Tab>
+                <Tab Title="Profile" Icon="tab_profile.png">
+                    <ShellContent ContentTemplate="{DataTemplate local:Pages.Profile}"/>
+                </Tab>
+            </TabBar>
+        </Shell>
+    </Application.MainPage>
+</Application>
