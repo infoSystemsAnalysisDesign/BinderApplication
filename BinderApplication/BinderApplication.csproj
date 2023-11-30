@@ -59,13 +59,34 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Pages\History.xaml.cs">
+	    <DependentUpon>History.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\Genres.xaml.cs">
+	    <DependentUpon>Genres.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\Liked.xaml.cs">
+	    <DependentUpon>Liked.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
 	  <MauiXaml Update="Pages\Binder.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\History.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\Genres.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\Match.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\Profile.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\Liked.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
