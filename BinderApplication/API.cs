@@ -1,14 +1,14 @@
-﻿
-using System;
+﻿using System;
 using System.IO;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace BinderApplication
 {
     public class API
     {
-        private string resultFromAPI;
+        private Book.BookVolume resultFromAPI;
 
         private async Task LoadData()
         {
@@ -21,37 +21,43 @@ namespace BinderApplication
                     HttpResponseMessage response = await httpClient.GetAsync(apiUrl).ConfigureAwait(false);
                     if (response.IsSuccessStatusCode)
                     {
-                        resultFromAPI = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                        string jsonResult = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+                        resultFromAPI = JsonSerializer.Deserialize<Book.BookVolume>(jsonResult);
                     }
                     else
                     {
-                        resultFromAPI = $"Error: {response.StatusCode} - {response.ReasonPhrase}";
+                        resultFromAPI = null; //MAKE ERROR HANDLING
                     }
                 }
             }
             catch (Exception ex)
             {
-                resultFromAPI = $"Exception: {ex.Message}";
+                resultFromAPI = null;   //MAKE ERROR HANDLING
             }
         }
 
-        public async Task<string> GetResultFromAPI()
+        public async Task<Book.BookVolume> GetResultFromAPI()
         {
             await LoadData();
-            WriteToFile(resultFromAPI); //Writes result of the API call to he document folder (hopefully) of your computer. For testing
+            WriteToFile(resultFromAPI); // Writes result of the API call to the document folder (for testing)
             return resultFromAPI;
         }
 
-        private static void WriteToFile(string textToBeWrittenToFile)
+        /*
+        Writes the data to a json file (you can open it in Notepad) to see how the data outputs.
+        It SHOULD appear in your documents folder as "OFILE"
+        */
+        private static void WriteToFile(Book.BookVolume bookVolume)
         {
-            // Create a string array with the lines of text
-            string[] lines = { textToBeWrittenToFile };
+            if (bookVolume != null)
+            {
+                string jsonResult = JsonSerializer.Serialize(bookVolume);
+                string[] lines = { jsonResult };
+                string docPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
-            // Set a variable to the Documents path.
-            string docPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-
-            // Write the string array to a new file named "OFILE.txt".
-            File.WriteAllLines(Path.Combine(docPath, "OFILE.txt"), lines);
+                File.WriteAllLines(Path.Combine(docPath, "OFILE.json"), lines);
+            }
         }
     }
 }
