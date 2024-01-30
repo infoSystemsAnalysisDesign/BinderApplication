@@ -1,3 +1,4 @@
 # BinderApplication
-This is the master branch. DO NOT push without checking with rest of team unless you know you're not going to break Binder <3
+This is the recovery branch. It will be occassionally updated to hold working code as a backup in case master is pushed and the code breaks.
+Last Update: 1/30/2024 4:50 pm
 
