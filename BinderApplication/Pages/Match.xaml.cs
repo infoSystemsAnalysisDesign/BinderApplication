@@ -62,47 +62,36 @@ namespace BinderApplication.Pages
                     displayText.AppendLine($"Identifier: {identifier.identifier}");
                 }
 
-                // Image links
-                if (volumeInfo.imageLinks != null)
-                {
-                    displayText.AppendLine($"Small Thumbnail: {volumeInfo.imageLinks.smallThumbnail}");
-                    displayText.AppendLine($"Thumbnail: {volumeInfo.imageLinks.thumbnail}");
-                }
+                // Create a layout for label and image
+                var layout = new StackLayout();
 
-                // Access Info
-                if (firstBookItem.accessInfo != null)
-                {
-                    displayText.AppendLine($"Country: {firstBookItem.accessInfo.country}");
-                    displayText.AppendLine($"Viewability: {firstBookItem.accessInfo.viewability}");
-                    displayText.AppendLine($"Embeddable: {firstBookItem.accessInfo.embeddable}");
-                    displayText.AppendLine($"Public Domain: {firstBookItem.accessInfo.publicDomain}");
-                    displayText.AppendLine($"Text to Speech Permission: {firstBookItem.accessInfo.textToSpeechPermission}");
-                    displayText.AppendLine($"Web Reader Link: {firstBookItem.accessInfo.webReaderLink}");
-                    displayText.AppendLine($"Access View Status: {firstBookItem.accessInfo.accessViewStatus}");
-                    displayText.AppendLine($"Quote Sharing Allowed: {firstBookItem.accessInfo.quoteSharingAllowed}");
-                }
-
-                // Sale Info
-                if (firstBookItem.saleInfo != null)
-                {
-                    displayText.AppendLine($"Sale Country: {firstBookItem.saleInfo.country}");
-                    displayText.AppendLine($"Saleability: {firstBookItem.saleInfo.saleability}");
-                    displayText.AppendLine($"Is Ebook: {firstBookItem.saleInfo.isEbook}");
-                }
-
+                // Add label
                 var label = new Label
                 {
                     Text = displayText.ToString(),
                     VerticalOptions = LayoutOptions.CenterAndExpand,
                     HorizontalOptions = LayoutOptions.CenterAndExpand,
                 };
+                layout.Children.Add(label);
 
-                Content = new StackLayout
+                // Image links
+                if (volumeInfo.imageLinks != null)
                 {
-                    Children = { label }
-                };
+                    displayText.AppendLine($"Small Thumbnail: {volumeInfo.imageLinks.smallThumbnail}");
+                    displayText.AppendLine($"Thumbnail: {volumeInfo.imageLinks.thumbnail}");
+
+                    Image image = new Image 
+                    { 
+                        Source = volumeInfo.imageLinks.smallThumbnail,
+                        WidthRequest = 100,
+                        HeightRequest = 150
+                    };
+
+                    layout.Children.Add(image);
+                }
+
+                Content = layout;
             }
         }
-
     }
 }
