@@ -62,17 +62,19 @@ namespace BinderApplication.Pages
                     displayText.AppendLine($"Identifier: {identifier.identifier}");
                 }
 
-                // Create a layout for label and image
-                var layout = new StackLayout();
+                // Create a grid for label and image
+                var grid = new Grid();
 
-                // Add label
+                // Add label to the grid
                 var label = new Label
                 {
                     Text = displayText.ToString(),
-                    VerticalOptions = LayoutOptions.CenterAndExpand,
-                    HorizontalOptions = LayoutOptions.CenterAndExpand,
+                    VerticalOptions = LayoutOptions.Start,
+                    HorizontalOptions = LayoutOptions.Start,
+                    HorizontalTextAlignment = TextAlignment.Start,
+                    VerticalTextAlignment = TextAlignment.Start
                 };
-                layout.Children.Add(label);
+                grid.Children.Add(label);
 
                 // Image links
                 if (volumeInfo.imageLinks != null)
@@ -80,17 +82,22 @@ namespace BinderApplication.Pages
                     displayText.AppendLine($"Small Thumbnail: {volumeInfo.imageLinks.smallThumbnail}");
                     displayText.AppendLine($"Thumbnail: {volumeInfo.imageLinks.thumbnail}");
 
-                    Image image = new Image 
-                    { 
+                    Image smallThumbnail = new Image
+                    {
                         Source = volumeInfo.imageLinks.smallThumbnail,
                         WidthRequest = 100,
                         HeightRequest = 150
                     };
 
-                    layout.Children.Add(image);
+                    grid.Children.Add(smallThumbnail);
+                    Grid.SetRow(smallThumbnail, 1); // Set the row for the image
                 }
 
-                Content = layout;
+                // Define rows in the grid
+                grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto }); // Auto-sized row for the label
+                grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto }); // Auto-sized row for the image, if added
+
+                Content = grid;
             }
         }
     }
