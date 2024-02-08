@@ -97,7 +97,11 @@ namespace BinderApplication.Pages
                 grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto }); // Auto-sized row for the label
                 grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto }); // Auto-sized row for the image, if added
 
-                Content = grid;
+                // Wrap the grid in a ScrollView
+                Content = new ScrollView
+                {
+                    Content = grid
+                };
             }
         }
     }
