@@ -59,6 +59,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Pages\JournalEntry.xaml.cs">
+	    <DependentUpon>JournalEntry.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Pages\History.xaml.cs">
 	    <DependentUpon>History.xaml</DependentUpon>
 	  </Compile>
@@ -71,6 +74,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Pages\JournalEntry.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\Binder.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
