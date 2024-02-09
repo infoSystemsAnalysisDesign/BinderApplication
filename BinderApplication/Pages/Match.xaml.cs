@@ -1,5 +1,6 @@
 using Microsoft.Maui.Controls;
 using System;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -82,9 +83,24 @@ namespace BinderApplication.Pages
                     displayText.AppendLine($"Small Thumbnail: {volumeInfo.imageLinks.smallThumbnail}");
                     displayText.AppendLine($"Thumbnail: {volumeInfo.imageLinks.thumbnail}");
 
+                    string smallThumbURL = volumeInfo.imageLinks.smallThumbnail;
+
+                    // Check if the URL starts with 'http'
+                    if (smallThumbURL.StartsWith("http://"))
+                    {
+                        // Replace 'http' with 'https'
+                        smallThumbURL = smallThumbURL.Replace("http://", "https://");
+                    }
+                    else if (!smallThumbURL.StartsWith("https://"))
+                    {
+                        // If the URL doesn't start with 'http://' or 'https://', assume it's a relative URL
+                        // and prepend 'https://'
+                        smallThumbURL = "https://" + smallThumbURL;
+                    }
+
                     Image smallThumbnail = new Image
                     {
-                        Source = volumeInfo.imageLinks.smallThumbnail,
+                        Source = smallThumbURL,
                         WidthRequest = 100,
                         HeightRequest = 150
                     };
