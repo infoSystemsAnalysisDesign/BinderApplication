@@ -40,24 +40,7 @@ namespace BinderApplication
         public async Task<Book.BookVolume> GetResultFromAPI()
         {
             await LoadData();
-            WriteToFile(resultFromAPI); // Writes result of the API call to the document folder (for testing)
             return resultFromAPI;
-        }
-
-        /*
-        Writes the data to a json file (you can open it in Notepad) to see how the data outputs.
-        It SHOULD appear in your documents folder as "OFILE"
-        */
-        private static void WriteToFile(Book.BookVolume bookVolume)
-        {
-            if (bookVolume != null)
-            {
-                string jsonResult = JsonSerializer.Serialize(bookVolume);
-                string[] lines = { jsonResult };
-                string docPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-
-                File.WriteAllLines(Path.Combine(docPath, "OFILE.json"), lines);
-            }
         }
     }
 }
