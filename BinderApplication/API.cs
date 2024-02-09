@@ -11,13 +11,13 @@ namespace BinderApplication
     {
         private List<Book.BookItem> resultsFromAPI;
 
-        private async Task LoadData()
+        private async Task LoadData(string genre)
         {
             try
             {
                 using (HttpClient httpClient = new HttpClient())
                 {
-                    string apiUrl = "https://www.googleapis.com/books/v1/volumes?q=subject:fiction&maxResults=10";
+                    string apiUrl = $"https://www.googleapis.com/books/v1/volumes?q=subject:{genre}&maxResults=10";
 
                     HttpResponseMessage response = await httpClient.GetAsync(apiUrl).ConfigureAwait(false);
                     if (response.IsSuccessStatusCode)
@@ -39,9 +39,9 @@ namespace BinderApplication
             }
         }
 
-        public async Task<List<Book.BookItem>> GetResultsFromAPI()
+        public async Task<List<Book.BookItem>> GetResultsFromAPI(string genre)
         {
-            await LoadData();
+            await LoadData(genre);
             return resultsFromAPI;
         }
     }

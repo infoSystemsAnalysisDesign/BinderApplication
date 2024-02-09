@@ -1,6 +1,7 @@
 using Microsoft.Maui.Controls;
 using System;
 using System.Collections.Generic;
+using System.Formats.Asn1;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,9 +22,7 @@ namespace BinderApplication.Pages
         {
             try
             {
-                List<Book.BookItem> results = await api.GetResultsFromAPI();
-                responseLabel.Text = "TEST\n\n";
-
+                List<Book.BookItem> results = await api.GetResultsFromAPI("fiction");
                 DisplayBookInfo(results);
             }
             catch (Exception ex)
