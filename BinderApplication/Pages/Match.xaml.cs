@@ -63,16 +63,6 @@ namespace BinderApplication.Pages
                 }
 
                 var grid = new Grid();
-                var label = new Label
-                {
-                    Text = displayText.ToString(),
-                    VerticalOptions = LayoutOptions.Start,
-                    HorizontalOptions = LayoutOptions.Start,
-                    HorizontalTextAlignment = TextAlignment.Start,
-                    VerticalTextAlignment = TextAlignment.Start
-                };
-
-                grid.Children.Add(label);
 
                 if (volumeInfo.imageLinks != null)
                 {
@@ -95,8 +85,20 @@ namespace BinderApplication.Pages
                     };
 
                     grid.Children.Add(smallThumbnail);
-                    Grid.SetRow(smallThumbnail, 1);
+                    Grid.SetRow(smallThumbnail, 0);
                 }
+
+                var label = new Label
+                {
+                    Text = displayText.ToString(),
+                    VerticalOptions = LayoutOptions.Start,
+                    HorizontalOptions = LayoutOptions.Start,
+                    HorizontalTextAlignment = TextAlignment.Start,
+                    VerticalTextAlignment = TextAlignment.Start
+                };
+
+                grid.Children.Add(label);
+                Grid.SetRow(label, 1);
 
                 grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
                 grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
@@ -109,5 +111,6 @@ namespace BinderApplication.Pages
                 Content = stackLayout
             };
         }
+
     }
 }
