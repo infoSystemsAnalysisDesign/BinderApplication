@@ -1,6 +1,6 @@
 using Microsoft.Maui.Controls;
 using System;
-using System.Runtime.CompilerServices;
+using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,10 +21,10 @@ namespace BinderApplication.Pages
         {
             try
             {
-                Book.BookVolume result = await api.GetResultFromAPI();
+                List<Book.BookItem> results = await api.GetResultsFromAPI();
                 responseLabel.Text = "TEST\n\n";
 
-                DisplayBookInfo(result);
+                DisplayBookInfo(results);
             }
             catch (Exception ex)
             {
@@ -32,14 +32,14 @@ namespace BinderApplication.Pages
             }
         }
 
-        private void DisplayBookInfo(Book.BookVolume bookVolume)
+        private void DisplayBookInfo(List<Book.BookItem> bookItems)
         {
-            if (bookVolume != null && bookVolume.items.Count > 0)
-            {
-                var firstBookItem = bookVolume.items[0];
-                var volumeInfo = firstBookItem.volumeInfo;
+            var stackLayout = new StackLayout();
 
-                // Build a readable string with book information
+            foreach (var bookItem in bookItems)
+            {
+                var volumeInfo = bookItem.volumeInfo;
+
                 StringBuilder displayText = new StringBuilder();
                 displayText.AppendLine($"Title: {volumeInfo.title}");
                 displayText.AppendLine($"Authors: {string.Join(", ", volumeInfo.authors)}");
@@ -56,17 +56,13 @@ namespace BinderApplication.Pages
                 displayText.AppendLine($"Preview Link: {volumeInfo.previewLink}");
                 displayText.AppendLine($"Info Link: {volumeInfo.infoLink}");
 
-                // Additional properties
                 foreach (var identifier in volumeInfo.industryIdentifiers)
                 {
                     displayText.AppendLine($"Identifier Type: {identifier.type}");
                     displayText.AppendLine($"Identifier: {identifier.identifier}");
                 }
 
-                // Create a grid for label and image
                 var grid = new Grid();
-
-                // Add label to the grid
                 var label = new Label
                 {
                     Text = displayText.ToString(),
@@ -75,26 +71,19 @@ namespace BinderApplication.Pages
                     HorizontalTextAlignment = TextAlignment.Start,
                     VerticalTextAlignment = TextAlignment.Start
                 };
+
                 grid.Children.Add(label);
 
-                // Image links
                 if (volumeInfo.imageLinks != null)
                 {
-                    displayText.AppendLine($"Small Thumbnail: {volumeInfo.imageLinks.smallThumbnail}");
-                    displayText.AppendLine($"Thumbnail: {volumeInfo.imageLinks.thumbnail}");
-
                     string smallThumbURL = volumeInfo.imageLinks.smallThumbnail;
 
-                    // Check if the URL starts with 'http'
                     if (smallThumbURL.StartsWith("http://"))
                     {
-                        // Replace 'http' with 'https'
                         smallThumbURL = smallThumbURL.Replace("http://", "https://");
                     }
                     else if (!smallThumbURL.StartsWith("https://"))
                     {
-                        // If the URL doesn't start with 'http://' or 'https://', assume it's a relative URL
-                        // and prepend 'https://'
                         smallThumbURL = "https://" + smallThumbURL;
                     }
 
@@ -106,19 +95,19 @@ namespace BinderApplication.Pages
                     };
 
                     grid.Children.Add(smallThumbnail);
-                    Grid.SetRow(smallThumbnail, 1); // Set the row for the image
+                    Grid.SetRow(smallThumbnail, 1);
                 }
 
-                // Define rows in the grid
-                grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto }); // Auto-sized row for the label
-                grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto }); // Auto-sized row for the image, if added
+                grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 
-                // Wrap the grid in a ScrollView
-                Content = new ScrollView
-                {
-                    Content = grid
-                };
+                stackLayout.Children.Add(grid);
             }
+
+            Content = new ScrollView
+            {
+                Content = stackLayout
+            };
         }
     }
 }

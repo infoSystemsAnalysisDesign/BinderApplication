@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Text.Json;
@@ -8,7 +9,7 @@ namespace BinderApplication
 {
     public class API
     {
-        private Book.BookVolume resultFromAPI;
+        private List<Book.BookItem> resultsFromAPI;
 
         private async Task LoadData()
         {
@@ -16,31 +17,32 @@ namespace BinderApplication
             {
                 using (HttpClient httpClient = new HttpClient())
                 {
-                    string apiUrl = "https://www.googleapis.com/books/v1/volumes?q=subject:fiction&maxResults=1";
+                    string apiUrl = "https://www.googleapis.com/books/v1/volumes?q=subject:fiction&maxResults=10";
 
                     HttpResponseMessage response = await httpClient.GetAsync(apiUrl).ConfigureAwait(false);
                     if (response.IsSuccessStatusCode)
                     {
                         string jsonResult = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
-                        resultFromAPI = JsonSerializer.Deserialize<Book.BookVolume>(jsonResult);
+                        var deserializedResult = JsonSerializer.Deserialize<Book.BookVolume>(jsonResult);
+                        resultsFromAPI = deserializedResult.items;
                     }
                     else
                     {
-                        resultFromAPI = null; //MAKE ERROR HANDLING
+                        resultsFromAPI = null; // Error handling
                     }
                 }
             }
             catch (Exception ex)
             {
-                resultFromAPI = null;   //MAKE ERROR HANDLING
+                resultsFromAPI = null; // Error handling
             }
         }
 
-        public async Task<Book.BookVolume> GetResultFromAPI()
+        public async Task<List<Book.BookItem>> GetResultsFromAPI()
         {
             await LoadData();
-            return resultFromAPI;
+            return resultsFromAPI;
         }
     }
 }
