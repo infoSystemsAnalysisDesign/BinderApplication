@@ -32,25 +32,40 @@
 //        }
 //    }
 
-// JournalEntryPage.xaml.cs
+// JournalEntry.xaml.cs
 using Microsoft.Maui.Controls;
+using System;
 
 namespace BinderApplication.Pages
 {
     public partial class JournalEntry : ContentPage
     {
-        public JournalEntry()
+        private readonly Binder _binderPage;
+
+        // Constructor to receive the Binder instance
+        public JournalEntry(Binder binderPage)
         {
             InitializeComponent();
+            _binderPage = binderPage;
         }
 
         private void OnSaveClicked(object sender, EventArgs e)
         {
             // Save the journal entry and send it back to the Binder page
-            string journalEntryText = entryJournal.Text;
+            JournalEntryModel journalEntry = new JournalEntryModel
+            {
+                Title = entryTitle.Text,
+                Date = DateTime.Now, // You can set a specific date if needed
+            };
+
+            // Add the text notes to the journal entry
+            journalEntry.TextNotes.Add(entryJournal.Text);
 
             // Pass the journal entry back to the Binder page
-            Navigation.PushAsync(new Binder(journalEntryText));
+            _binderPage?.AddJournalEntry(journalEntry);
+
+            // Navigate back to the Binder page
+            Navigation.PopAsync();
         }
     }
 }

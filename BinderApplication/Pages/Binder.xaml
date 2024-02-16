@@ -32,11 +32,7 @@
 
     <StackLayout>
         <!-- Add your other UI elements for the Binder page here -->
-
-        <!-- Display for the entered journal entry -->
-        <Label Text="" x:Name="labelJournalEntry" />
-
-        <!-- Button to navigate to Journal Entry page -->
-        <Button Text="Add Journal Entry" Clicked="OnJournalEntryClicked" />
+        <Button Text="Add Journal Entry" Clicked="OnJournalEntryClicked" /> <!-- Button to navigate to Journal Entry page -->
+        <Label Text="" x:Name="labelJournalEntry" /> <!-- Display for the entered journal entry -->
     </StackLayout>
 </ContentPage>

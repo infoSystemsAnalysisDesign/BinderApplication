@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<!--<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BinderApplication.Pages.JournalEntry"
              Title="Binder">
-    <!--<VerticalStackLayout>
+    --><!--<VerticalStackLayout>
         <Label 
             Text="Your Reading Binder"
             FontSize="Large"
@@ -20,10 +20,32 @@
         --><!-- Add your UI elements for journal entry input here --><!--
         <Entry Placeholder="Type your journal entry..." x:Name="entryJournal" />
         <Button Text="Save" Clicked="OnSaveClicked" />
-    </StackLayout>-->
+    </StackLayout>--><!--
     <StackLayout>
-        <!-- Add your UI elements for journal entry input here -->
-        <Entry Placeholder="Type your journal entry..." x:Name="entryJournal" />
+        --><!-- Add a title entry --><!--
+        <Entry x:Name="entryTitle" Placeholder="Title" />
+
+        --><!-- Existing entry for the journal text --><!--
+        <Entry x:Name="entryJournal" Placeholder="Your Journal Entry" />
+
+        --><!-- Button to save the entry --><!--
         <Button Text="Save" Clicked="OnSaveClicked" />
     </StackLayout>
+    </ContentPage?>-->
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BinderApplication.Pages.JournalEntry">
+
+    <StackLayout>
+        <!-- Add a title entry -->
+        <Entry x:Name="entryTitle" Placeholder="Title" />
+
+        <!-- Existing entry for the journal text -->
+        <Entry x:Name="entryJournal" Placeholder="Your Journal Entry" />
+
+        <!-- Button to save the entry -->
+        <Button Text="Save" Clicked="OnSaveClicked" />
+    </StackLayout>
+
 </ContentPage>
