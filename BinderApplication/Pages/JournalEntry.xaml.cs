@@ -80,12 +80,12 @@ namespace BinderApplication.Pages
          */
         public void JournalDatabase()
         {
-            
+
 
             /* Refactor this to be an independent class.
              * This is for testing */
 
-            const string connectionUri = "mongodb+srv://Binder:AlsoBinder1@cluster0.ibrxa6e.mongodb.net/?retryWrites=true&w=majority";
+            const string connectionUri = "mongodb://Binder:AlsoBinder1@ac-clelo6g-shard-00-00.ibrxa6e.mongodb.net:27017,ac-clelo6g-shard-00-01.ibrxa6e.mongodb.net:27017,ac-clelo6g-shard-00-02.ibrxa6e.mongodb.net:27017/?ssl=true&replicaSet=atlas-i5m36b-shard-0&authSource=admin&retryWrites=true&w=majority";
 
             var settings = MongoClientSettings.FromConnectionString(connectionUri);
 
