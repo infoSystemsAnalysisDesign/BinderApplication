@@ -56,6 +56,8 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+		<PackageReference Include="MongoDB.Bson" Version="2.23.1" />
+		<PackageReference Include="MongoDB.Driver" Version="2.23.1" />
 	</ItemGroup>
 
 	<ItemGroup>
