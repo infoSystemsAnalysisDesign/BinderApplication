@@ -17,7 +17,10 @@ namespace BinderApplication
             {
                 using (HttpClient httpClient = new HttpClient())
                 {
-                    string apiUrl = $"https://www.googleapis.com/books/v1/volumes?q=subject:{genre}&maxResults=10";
+                    // Use a fixed offset (e.g., based on the current day)
+                    int fixedOffset = DateTime.Now.Day % 10; // Change this as needed
+
+                    string apiUrl = $"https://www.googleapis.com/books/v1/volumes?q=subject:{genre}&startIndex={fixedOffset}&maxResults=10";
 
                     HttpResponseMessage response = await httpClient.GetAsync(apiUrl).ConfigureAwait(false);
                     if (response.IsSuccessStatusCode)
