@@ -1,2 +1,2 @@
 # BinderApplication
-This is the branch Alex is working in to prevent nightmares with the master branch.
+This is the branch to develop sign-in/sign-up functionality
