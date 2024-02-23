@@ -69,6 +69,24 @@ namespace BinderApplication.Database
             //Eventually we want these to save with an EmailID (the address), but we need our account system to exist first
             collection.InsertOne(document);
         }
+
+        internal void SaveLogin(string name, string email, string phoneNumber,string password)
+        {
+            // Get a reference to the "journalEntries" collection
+            var collection = database.GetCollection<BsonDocument>("Login");
+
+            //Formatting and insertion of journalbase entries
+            var document = new BsonDocument
+        {
+            { "Name", name},
+            { "Email", email},
+            { "Phone Number", phoneNumber},
+            {"Password", password }
+        };
+
+            //Eventually we want these to save with an EmailID (the address), but we need our account system to exist first
+            collection.InsertOne(document);
+        }
     }
 
 }

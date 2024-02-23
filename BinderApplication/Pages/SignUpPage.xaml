@@ -33,28 +33,28 @@
                     <Frame Padding="10" BorderColor="Transparent" CornerRadius="0">
                         <Grid ColumnDefinitions="25, *" ColumnSpacing="10">
                             <Image VerticalOptions="Center" Source="user.png" HeightRequest="25" WidthRequest="25"/>
-                            <handless:BorderlessEntry VerticalOptions="Center" Placeholder="Name" Grid.Column="1"/>
+                            <handless:BorderlessEntry x:Name="name"  VerticalOptions="Center" Placeholder="Name" Grid.Column="1"/>
                         </Grid>
                     </Frame>
 
                     <Frame Padding="10" BorderColor="Transparent" CornerRadius="0">
                         <Grid ColumnDefinitions="25, *" ColumnSpacing="10">
                             <Image VerticalOptions="Center" Source="email.png" HeightRequest="25" WidthRequest="25"/>
-                            <handless:BorderlessEntry VerticalOptions="Center" Placeholder="Email" Grid.Column="1"/>
+                            <handless:BorderlessEntry x:Name="email" VerticalOptions="Center" Placeholder="Email" Grid.Column="1"/>
                         </Grid>
                     </Frame>
 
                     <Frame Padding="10" BorderColor="Transparent" CornerRadius="0">
                         <Grid ColumnDefinitions="25, *" ColumnSpacing="10">
                             <Image VerticalOptions="Center" Source="mobile.png" HeightRequest="25" WidthRequest="25"/>
-                            <handless:BorderlessEntry VerticalOptions="Center" Placeholder="Phone Number" Grid.Column="1"/>
+                            <handless:BorderlessEntry x:Name="phoneNumber" VerticalOptions="Center" Placeholder="Phone Number" Grid.Column="1"/>
                         </Grid>
                     </Frame>
 
                     <Frame Padding="10" BorderColor="Transparent" CornerRadius="0">
                         <Grid ColumnDefinitions="25, *" ColumnSpacing="10">
                             <Image VerticalOptions="Center" Source="password.png" HeightRequest="25" WidthRequest="25"/>
-                            <handless:BorderlessEntry VerticalOptions="Center" Placeholder="Password" IsPassword="True" Grid.Column="1"/>
+                            <handless:BorderlessEntry x:Name="password" VerticalOptions="Center" Placeholder="Password" IsPassword="True" Grid.Column="1"/>
                         </Grid>
                     </Frame>
 
