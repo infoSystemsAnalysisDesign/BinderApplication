@@ -38,6 +38,7 @@ using System;
 using System.Text.Json;
 using MongoDB.Driver;
 using MongoDB.Bson;
+using BinderApplication.Database;
 
 namespace BinderApplication.Pages
 {
@@ -67,71 +68,11 @@ namespace BinderApplication.Pages
             // Pass the journal entry back to the Binder page
             _binderPage?.AddJournalEntry(journalEntry);
 
-            //Call database (((REFACTOR)))
-            JournalDatabase();
+            var dbConnection = DatabaseConnection.Instance;
+            dbConnection.SaveJournalEntry(entryTitle.Text, entryJournal.Text);
 
             // Navigate back to the Binder page
             Navigation.PopAsync();
-        }
-
-        /*
-         * THIS ABSOLUTELY NEEDS TO BE REFACTORED INTO ITS OWN CLASS
-         * this is just so we can demonstrate to Dr.B
-         */
-        public void JournalDatabase()
-        {
-
-
-            /* Refactor this to be an independent class.
-             * This is for testing */
-
-            const string connectionUri = "mongodb://Binder:AlsoBinder1@ac-clelo6g-shard-00-00.ibrxa6e.mongodb.net:27017,ac-clelo6g-shard-00-01.ibrxa6e.mongodb.net:27017,ac-clelo6g-shard-00-02.ibrxa6e.mongodb.net:27017/?ssl=true&replicaSet=atlas-i5m36b-shard-0&authSource=admin&retryWrites=true&w=majority";
-
-            var settings = MongoClientSettings.FromConnectionString(connectionUri);
-
-            // Set the ServerApi field of the settings object to set the version of the Stable API on the client
-            settings.ServerApi = new ServerApi(ServerApiVersion.V1);
-
-            // Create a new client and connect to the server
-            var client = new MongoClient(settings);
-
-            // Send a ping to confirm a successful connection
-            try
-            {
-                var result = client.GetDatabase("admin").RunCommand<BsonDocument>(new BsonDocument("ping", 1));
-                Console.WriteLine("Pinged your deployment. You successfully connected to MongoDB!");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
-
-            //connectionUri
-            MongoClient dbClient = new MongoClient(connectionUri);
-
-            //stores all databases into var that can be displayed later (for testing)
-            var dbList = dbClient.ListDatabases().ToList();
-
-            //Connects to the Binder database and then the Journal table
-            var database = dbClient.GetDatabase("Binder");
-            var collection = database.GetCollection<BsonDocument>("Journal");
-            
-            //Finds and displays the first entry found in the Journal table
-            var firstDocument = collection.Find(new BsonDocument()).FirstOrDefault();
-            Console.WriteLine(firstDocument);
-
-            //Adding the date
-            DateTime date = DateTime.Now;
-
-            //Formatting and insertion of the data 
-            var document = new BsonDocument
-            {
-                { "Date", date},
-                { "Title", entryTitle.Text},
-                { "Entry", entryJournal.Text}
-            };
-
-            collection.InsertOne(document);
         }
     }
 }
