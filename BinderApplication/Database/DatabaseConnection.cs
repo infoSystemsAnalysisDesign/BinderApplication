@@ -10,6 +10,7 @@ using MongoDB.Bson;
 using Microsoft.Maui.Controls;
 using System.Diagnostics;
 
+
 namespace BinderApplication.Database
 {
     public class DatabaseConnection
@@ -87,6 +88,7 @@ namespace BinderApplication.Database
             //Eventually we want these to save with an EmailID (the address), but we need our account system to exist first
             collection.InsertOne(document);
         }
+
     }
 
 }
