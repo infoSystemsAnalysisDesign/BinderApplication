@@ -9,7 +9,7 @@ public partial class App : Application
     public App()
     {
         InitializeComponent();
-
+        MainPage = new NavigationPage(new SignInPage());
         DatabaseConnection databaseConnection = new DatabaseConnection();
 
         Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping(nameof(BorderlessEntry), (handler, view) =>
@@ -23,8 +23,14 @@ public partial class App : Application
 #endif
             }
         });
-
-
-        MainPage = new AppShell();
     }
+
+         protected override void OnStart()
+    {
+        // Handle when your app starts
+
+        // Set the initial main page to SignInPage
+        MainPage = new NavigationPage(new SignInPage());
+    }
+
 }

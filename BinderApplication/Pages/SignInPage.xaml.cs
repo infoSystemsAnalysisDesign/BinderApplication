@@ -6,10 +6,10 @@ public partial class SignInPage : ContentPage
 	{
 		InitializeComponent();
 	}
-	private async void checkLogin(object sender, EventArgs e)
+	private async void OnSignInButtonClicked(object sender, EventArgs e)
 	{
-		
-	}
+        await Navigation.PushAsync(new MainPage());
+    }
 
     private async void TapGestureRecognizer_Tapped_For_SignUP(object sender, TappedEventArgs e)
     {

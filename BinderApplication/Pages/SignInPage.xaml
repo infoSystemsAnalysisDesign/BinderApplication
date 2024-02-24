@@ -43,7 +43,7 @@
                     </Grid>
                 </Frame>
 
-                <Button CornerRadius="0" HeightRequest="60"  Text="SIGN IN" FontSize="20" FontAttributes="Bold"/>
+                <Button CornerRadius="0" HeightRequest="60"  Text="SIGN IN" FontSize="20" FontAttributes="Bold" Clicked="OnSignInButtonClicked"/>
 <!--Borderless Entry-->
                 <Label FontAttributes="Bold" Text="Forgot Password?" TextColor="Gray" HorizontalTextAlignment="Center" />
                 <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
