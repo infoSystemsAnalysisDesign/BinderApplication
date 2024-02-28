@@ -25,12 +25,12 @@ public partial class App : Application
         });
     }
 
-         protected override void OnStart()
-    {
-        // Handle when your app starts
+    //     protected override void OnStart()
+    //{
+    //    // Handle when your app starts
 
-        // Set the initial main page to SignInPage
-        MainPage = new NavigationPage(new SignInPage());
-    }
+    //    // Set the initial main page to SignInPage
+    //    MainPage = new NavigationPage(new SignInPage());
+    //}
 
 }

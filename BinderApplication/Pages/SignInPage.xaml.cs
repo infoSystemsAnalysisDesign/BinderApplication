@@ -9,7 +9,7 @@ public partial class SignInPage : ContentPage
 {
     public SignInPage()
 	{
-		
+        InitializeComponent();
 	}
 	private async void OnSignInButtonClicked(object sender, EventArgs e)
 	{
