@@ -4,7 +4,9 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:BinderApplication"
-    FlyoutBehavior="Disabled">
+    xmlns:pages="clr-namespace:BinderApplication.Pages"
+    FlyoutBehavior="Disabled"
+    Shell.NavBarIsVisible="False">
 
     <ShellContent
      Title="SignIn"
@@ -20,5 +22,19 @@
     Title="Loading"
     ContentTemplate="{DataTemplate local:Loading}"
     Route="Loading" />
+    <TabBar>
+        <ShellContent
+         Title="Home"
+         ContentTemplate="{DataTemplate pages:Binder}"
+         Route="Binder" />
+        <ShellContent    
+         Title="Home"
+         ContentTemplate="{DataTemplate pages:Match}"
+         Route="Match" />
+        <ShellContent
+         Title="Home"
+         ContentTemplate="{DataTemplate pages:Profile}"
+         Route="Profile" />
+    </TabBar>
 
 </Shell>
