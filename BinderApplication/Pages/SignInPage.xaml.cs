@@ -1,15 +1,15 @@
 using MongoDB.Bson;
 using MongoDB.Driver;
 using BinderApplication.Database;
-
+using BinderApplication.Services;
 
 namespace BinderApplication;
 
 public partial class SignInPage : ContentPage
 {
-	public SignInPage()
+    public SignInPage()
 	{
-		InitializeComponent();
+		
 	}
 	private async void OnSignInButtonClicked(object sender, EventArgs e)
 	{

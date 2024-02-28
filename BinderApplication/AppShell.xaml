@@ -4,16 +4,21 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:BinderApplication"
-    Shell.FlyoutBehavior="Disabled">
+    Shell.FlyoutBehavior="Flyout">
 
     <ShellContent
-     Title="Home"
+     Title="SignIn"
      ContentTemplate="{DataTemplate local:SignInPage}"
      Route="SignIn" />
 
     <ShellContent
-    Title="Home"
+    Title="SignUp"
     ContentTemplate="{DataTemplate local:SignUpPage}"
     Route="SignUp" />
-    
+
+    <ShellContent
+    Title="Loading"
+    ContentTemplate="{DataTemplate local:Loading}"
+    Route="Loading" />
+
 </Shell>

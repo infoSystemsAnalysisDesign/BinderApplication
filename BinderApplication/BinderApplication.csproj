@@ -64,6 +64,9 @@
 	  <MauiXaml Update="Pages\Binder.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\Loading.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\Match.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
