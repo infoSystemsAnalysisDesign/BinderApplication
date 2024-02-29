@@ -3,10 +3,38 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BinderApplication.Pages.Match">
 
-    <StackLayout>
-        <!-- Add any other UI elements as needed -->
-        <Label x:Name="responseLabel" Text="Response will be displayed here" />
-    </StackLayout>
+
+    <CarouselView ItemsSource="{Binding BookItems}">
+        <CarouselView.ItemTemplate>
+            
+            <DataTemplate>
+                <Frame Padding="10" CornerRadius="10" BorderColor="Black">
+                    <StackLayout>
+                        <Label Text="{Binding volumeInfo.title}" />
+                       
+                        <Label Text="{Binding volumeInfo.publisher}" />
+                        <Label Text="{Binding volumeInfo.publishedDate}" />
+                        <Label Text="{Binding volumeInfo.description}" />
+                        <Label Text="{Binding volumeInfo.pageCount}" />
+                        <Label Text="{Binding volumeInfo.printType}" />
+                        <Label Text="{Binding volumeInfo.averageRating}" />
+                        <Label Text="{Binding volumeInfo.ratingsCount}" />
+                        <Label Text="{Binding volumeInfo.maturityRating}" />
+                        <Label Text="{Binding volumeInfo.language}" />
+                        <Label Text="{Binding volumeInfo.previewLink}" />
+                        <Label Text="{Binding volumeInfo.infoLink}" />
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Image Source="{Binding volumeInfo.imageLinks.smallThumbnail}" WidthRequest="100" HeightRequest="150" />
+                        </Grid>
+                    </StackLayout>
+
+                </Frame>
+            </DataTemplate>
+        </CarouselView.ItemTemplate>
+    </CarouselView>
 
 </ContentPage>
 

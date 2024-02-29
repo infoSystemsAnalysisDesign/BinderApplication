@@ -2,6 +2,7 @@ using Microsoft.Maui.Controls;
 using System;
 using System.Collections.Generic;
 using System.Formats.Asn1;
+using System.Globalization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,12 +11,14 @@ namespace BinderApplication.Pages
     public partial class Match : ContentPage
     {
         private API api;
+        private MatchViewModel viewModel;
 
         public Match()
         {
             InitializeComponent();
             api = new API();
-            LoadData();
+            viewModel = new MatchViewModel(api);
+            BindingContext = viewModel;
         }
 
         private async Task LoadData()
@@ -23,11 +26,11 @@ namespace BinderApplication.Pages
             try
             {
                 List<Book.BookItem> results = await api.GetResultsFromAPI("fiction");
-                DisplayBookInfo(results);
+              //  DisplayBookInfo(results);
             }
             catch (Exception ex)
             {
-                responseLabel.Text = $"Exception: {ex.Message}";
+              //  responseLabel.Text = $"Exception: {ex.Message}";
             }
         }
 
@@ -103,6 +106,7 @@ namespace BinderApplication.Pages
                 grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 
                 stackLayout.Children.Add(grid);
+                BindingContext = this;
             }
 
             Content = new ScrollView
@@ -112,4 +116,5 @@ namespace BinderApplication.Pages
         }
 
     }
+  
 }
