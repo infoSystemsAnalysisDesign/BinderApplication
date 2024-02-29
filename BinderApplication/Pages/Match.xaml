@@ -3,47 +3,47 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BinderApplication.Pages.Match">
 
-
     <CarouselView ItemsSource="{Binding BookItems}">
         <CarouselView.ItemTemplate>
-            
             <DataTemplate>
                 <Frame Padding="10" CornerRadius="10" BorderColor="Black">
                     <StackLayout>
-                        <Image Source="{Binding volumeInfo.ModifiedImageUrl}" WidthRequest="100" HeightRequest="150" />
-                        <Label Text="{Binding volumeInfo.title}" />
-                        <StackLayout BindableLayout.ItemsSource="{Binding volumeInfo.authors}">
+                        <!-- Update Image Source binding -->
+                        <Image Source="{Binding VolumeInfo.ModifiedImageUrl}" WidthRequest="100" HeightRequest="150" />
+                        <!-- Update title binding -->
+                        <Label Text="{Binding VolumeInfo.Title}" />
+                        <!-- Update authors binding -->
+                        <StackLayout BindableLayout.ItemsSource="{Binding VolumeInfo.Authors}">
                             <BindableLayout.ItemTemplate>
                                 <DataTemplate>
                                     <Label Text="{Binding}" />
                                 </DataTemplate>
                             </BindableLayout.ItemTemplate>
                         </StackLayout>
-                        <StackLayout BindableLayout.ItemsSource="{Binding volumeInfo.categories}">
+                        <!-- Update categories binding -->
+                        <StackLayout BindableLayout.ItemsSource="{Binding VolumeInfo.Categories}">
                             <BindableLayout.ItemTemplate>
                                 <DataTemplate>
                                     <Label Text="{Binding}" />
                                 </DataTemplate>
                             </BindableLayout.ItemTemplate>
                         </StackLayout>
-                         <Label Text="{Binding volumeInfo.publisher}" />
-                        <Label Text="{Binding volumeInfo.publishedDate}" />
-                        <Label Text="{Binding volumeInfo.description}" />
-                        <Label Text="{Binding volumeInfo.pageCount}" />
-                        <Label Text="{Binding volumeInfo.printType}" />
-                        <Label Text="{Binding volumeInfo.averageRating}" />
-                        <Label Text="{Binding volumeInfo.ratingsCount}" />
-                        <Label Text="{Binding volumeInfo.maturityRating}" />
-                        <Label Text="{Binding volumeInfo.language}" />
-                        <Label Text="{Binding volumeInfo.previewLink}" />
-                        <Label Text="{Binding volumeInfo.infoLink}" />
-                       
+                        <!-- Update publisher, published date, description, pageCount, printType, averageRating, ratingsCount, maturityRating, language, previewLink, and infoLink bindings -->
+                        <Label Text="{Binding VolumeInfo.Publisher}" />
+                        <Label Text="{Binding VolumeInfo.PublishedDate}" />
+                        <Label Text="{Binding VolumeInfo.Description}" />
+                        <Label Text="{Binding VolumeInfo.PageCount}" />
+                        <Label Text="{Binding VolumeInfo.PrintType}" />
+                        <Label Text="{Binding VolumeInfo.AverageRating}" />
+                        <Label Text="{Binding VolumeInfo.RatingsCount}" />
+                        <Label Text="{Binding VolumeInfo.MaturityRating}" />
+                        <Label Text="{Binding VolumeInfo.Language}" />
+                        <Label Text="{Binding VolumeInfo.PreviewLink}" />
+                        <Label Text="{Binding VolumeInfo.InfoLink}" />
                     </StackLayout>
-
                 </Frame>
             </DataTemplate>
         </CarouselView.ItemTemplate>
     </CarouselView>
 
 </ContentPage>
-

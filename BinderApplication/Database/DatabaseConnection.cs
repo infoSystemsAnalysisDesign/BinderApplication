@@ -90,7 +90,8 @@ namespace BinderApplication.Database
 
         public List<BookModel> RetrieveBooksFromDatabase()
         {
-            var collection = database.GetCollection<BsonDocument>("Books-Fiction");
+            string genre = "Fiction";
+            var collection = database.GetCollection<BsonDocument>("Books-" + genre);
 
             var filter = Builders<BsonDocument>.Filter.Empty;
             var books = collection.Find(filter).ToList();
