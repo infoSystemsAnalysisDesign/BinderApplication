@@ -4,17 +4,23 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using BinderApplication.Database;
+using BinderApplication.WinUI;
 
 namespace BinderApplication.Pages
 {
     public partial class Match : ContentPage
     {
         private readonly DatabaseConnection databaseConnection = DatabaseConnection.Instance;
+        private MatchViewModel viewModel;
 
         public Match()
         {
+            //InitializeComponent();
+            //LoadData();
+
             InitializeComponent();
-            LoadData();
+            viewModel = new MatchViewModel(databaseConnection);
+            BindingContext = viewModel;
         }
 
         private async Task LoadData()
