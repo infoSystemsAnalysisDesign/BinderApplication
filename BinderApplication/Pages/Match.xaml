@@ -9,7 +9,7 @@
                 <Frame Padding="10" CornerRadius="10" BorderColor="Black">
                     <StackLayout>
                         <!-- Update Image Source binding -->
-                        <Image Source="{Binding VolumeInfo.ModifiedImageUrl}" WidthRequest="100" HeightRequest="150" />
+                        <Image Source="{Binding VolumeInfo.ImageLinks.SmallThumbnail}" WidthRequest="100" HeightRequest="150" />
                         <!-- Update title binding -->
                         <Label Text="{Binding VolumeInfo.Title}" />
                         <!-- Update authors binding -->

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using BinderApplication.Database;
-using BinderApplication.WinUI;
 
 namespace BinderApplication.Pages
 {
