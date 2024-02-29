@@ -16,9 +16,12 @@ namespace BinderApplication.Pages
         public Match()
         {
             InitializeComponent();
-            api = new API();
-            viewModel = new MatchViewModel(api);
-            BindingContext = viewModel;
+
+            //api = new API();
+            //viewModel = new MatchViewModel(api);
+            //BindingContext = viewModel;
+
+
         }
 
         private async Task LoadData()

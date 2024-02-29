@@ -9,6 +9,8 @@ using MongoDB.Bson;
 
 using Microsoft.Maui.Controls;
 using System.Diagnostics;
+using Newtonsoft.Json;
+using System.Text.RegularExpressions;
 
 namespace BinderApplication.Database
 {
@@ -68,6 +70,54 @@ namespace BinderApplication.Database
 
             //Eventually we want these to save with an EmailID (the address), but we need our account system to exist first
             collection.InsertOne(document);
+        }
+
+        //public void RetrieveBooksFromDatabase()
+        //{
+        //    var collection = database.GetCollection<BsonDocument>("Books-Fiction");
+
+        //    var filter = Builders<BsonDocument>.Filter.Empty;
+        //    var books = collection.Find(filter).ToList();
+
+        //    var bsonString = books.ToJson();
+
+        //    // Clean the BSON string
+        //    var cleanedBsonString = CleanBsonString(bsonString);
+
+        //    // Deserialize the cleaned BSON string
+        //    var deserializedBooks = DeserializeBooks(cleanedBsonString);
+        //}
+
+        public List<BookModel> RetrieveBooksFromDatabase()
+        {
+            var collection = database.GetCollection<BsonDocument>("Books-Fiction");
+
+            var filter = Builders<BsonDocument>.Filter.Empty;
+            var books = collection.Find(filter).ToList();
+
+            var bsonString = books.ToJson();
+
+            // Clean the BSON string
+            var cleanedBsonString = CleanBsonString(bsonString);
+
+            // Deserialize the cleaned BSON string
+            var deserializedBooks = DeserializeBooks(cleanedBsonString);
+
+            return deserializedBooks;
+        }
+
+
+        public static string CleanBsonString(string bsonString)
+        {
+            // Remove ObjectId wrapper from _id field
+            bsonString = Regex.Replace(bsonString, @"ObjectId\(""\w+""\)", "null");
+
+            return bsonString;
+        }
+
+        public static List<BookModel> DeserializeBooks(string jsonString)
+        {
+            return JsonConvert.DeserializeObject<List<BookModel>>(jsonString);
         }
     }
 

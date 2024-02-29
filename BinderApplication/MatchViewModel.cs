@@ -4,27 +4,29 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BinderApplication.Database;
 
 namespace BinderApplication
 {
     // ViewModel class
     public class MatchViewModel
     {
-        private readonly API api;
+        private readonly DatabaseConnection databaseConnection;
 
-        public ObservableCollection<Book.BookItem> BookItems { get; set; } = new ObservableCollection<Book.BookItem>();
+        public ObservableCollection<BookModel> BookItems { get; set; } = new ObservableCollection<BookModel>();
 
-        public MatchViewModel(API api)
+        public MatchViewModel(DatabaseConnection databaseConnection)
         {
-            this.api = api;
+            this.databaseConnection = databaseConnection;
             LoadData();
         }
 
-        private async void LoadData()
+        private void LoadData()
         {
             try
             {
-                List<Book.BookItem> results = await api.GetResultsFromAPI("fiction");
+                // Retrieve books from the database
+                List<BookModel> results = databaseConnection.RetrieveBooksFromDatabase();
                 foreach (var bookItem in results)
                 {
                     BookItems.Add(bookItem);
@@ -35,5 +37,6 @@ namespace BinderApplication
                 // Handle exception
             }
         }
+
     }
 }
