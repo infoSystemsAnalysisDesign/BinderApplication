@@ -53,6 +53,24 @@ public class Book
         public string previewLink { get; set; }
         public string infoLink { get; set; }
         public string canonicalVolumeLink { get; set; }
+
+        public string ModifiedImageUrl
+        {
+            get
+            {
+                if (imageLinks != null && !string.IsNullOrEmpty(imageLinks.thumbnail))
+                {
+                    // Check if the URL starts with "http" and replace it with "https"
+                    if (imageLinks.thumbnail.StartsWith("http"))
+                    {
+                        return imageLinks.thumbnail.Replace("http", "https");
+                    }
+                }
+
+                // If the URL doesn't start with "http", or is null/empty, return as is
+                return imageLinks?.thumbnail;
+            }
+        }
     }
 
     public class SaleInfo
