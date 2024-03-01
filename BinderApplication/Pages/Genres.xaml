@@ -3,11 +3,28 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BinderApplication.Pages.Genres"
              Title="Genres">
-    <VerticalStackLayout>
-        <Label 
-            Text="Genres"
-            FontSize="Large"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <ScrollView>
+           <StackLayout Orientation="Horizontal" Spacing="10">
+        <Label Text="Nonfiction" VerticalOptions="Center" />
+        <Switch x:Name="nonfiction" />
+        
+        <Label Text="Fiction" VerticalOptions="Center" />
+        <Switch x:Name="fiction" />
+        
+      
+        <Label>
+            <Label.Triggers>
+                <DataTrigger TargetType="Label"
+                         Binding="{Binding Source={x:Reference styleSwitch}, Path=IsToggled}"
+                         Value="True">
+                    <Setter Property="FontAttributes" Value="Italic, Bold" />
+                    <Setter Property="FontSize" Value="18" />
+                </DataTrigger>
+            </Label.Triggers>
+        </Label>
+    </StackLayout>
+    </ScrollView>
+ 
+
+
 </ContentPage>
