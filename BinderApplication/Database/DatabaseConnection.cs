@@ -12,6 +12,7 @@ using System.Diagnostics;
 using Newtonsoft.Json;
 using System.Text.RegularExpressions;
 
+
 namespace BinderApplication.Database
 {
     public class DatabaseConnection

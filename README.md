@@ -1,2 +1,2 @@
 # BinderApplication
-This is the branch that has API connectivity and stores/displays information from the Google Books API.
+This is the branch to develop sign-in/sign-up functionality
