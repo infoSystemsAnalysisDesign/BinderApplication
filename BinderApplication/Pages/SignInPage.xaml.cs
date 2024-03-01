@@ -25,9 +25,10 @@ public partial class SignInPage : ContentPage
             // Validate user inputs
             if (string.IsNullOrEmpty(email.Text) || string.IsNullOrEmpty(password.Text))
             {
-                // Handle invalid inputs, show an alert or display a message to the user
+                await DisplayAlert("Login Failed", "Please Enter Login Information", "OK");
                 return;
             }
+
 
             // Check if there is a user with the provided email and password
             var filter = Builders<BsonDocument>.Filter.Eq("Email", email.Text) & Builders<BsonDocument>.Filter.Eq("Password", password.Text);
