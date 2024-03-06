@@ -1,38 +1,3 @@
-//namespace BinderApplication.Pages;
-
-////public partial class JournalEntry : ContentPage
-////{
-////	public JournalEntry()
-////	{
-////		InitializeComponent();
-////	}
-////}
-
-//// JournalEntryPage.xaml.cs
-//using Microsoft.Maui.Controls;
-
-
-//{
-//    public partial class JournalEntry : ContentPage
-//    {
-//        public JournalEntry()
-//        {
-//            InitializeComponent();
-//        }
-
-//        private void OnSaveClicked(object sender, EventArgs e)
-//        {
-//            // Save the journal entry and navigate back to the Binder page
-//            string journalEntryText = entryJournal.Text;
-
-//            // Add your logic to save the journal entry (e.g., use a database, etc.)
-
-//            // Navigate back to the Binder page
-//            Navigation.PopAsync();
-//        }
-//    }
-
-// JournalEntry.xaml.cs
 using Microsoft.Maui.Controls;
 using System;
 using System.Text.Json;

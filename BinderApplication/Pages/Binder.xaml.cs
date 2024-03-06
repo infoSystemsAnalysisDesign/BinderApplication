@@ -1,32 +1,3 @@
-////namespace BinderApplication.Pages;
-
-////public partial class Binder : ContentPage
-////{
-////	public Binder()
-////	{
-////		InitializeComponent();
-////	}
-////}
-
-//// Binder.xaml.cs
-//using Microsoft.Maui.Controls;
-
-//namespace BinderApplication.Pages;
-
-//public partial class BinderPage : ContentPage
-//{
-//    public BinderPage()
-//    {
-//        InitializeComponent();
-//    }
-
-//    private void OnJournalEntryClicked(object sender, EventArgs e)
-//    {
-//        // Navigate to the Journal Entry page
-//        Navigation.PushAsync(new JournalEntry());
-//    }
-//}
-// Binder.xaml.cs
 using Microsoft.Maui.Controls;
 using System;
 using System.Collections.Generic;

@@ -36,8 +36,10 @@ public partial class SignInPage : ContentPage
 
             if (user != null)
             {
-                // User found, navigate to MainPage
+                //Store email and password into Database instance
+                dbConnection.StoreLogin(email.Text, password.Text);
 
+                // User found, navigate to MainPage
                 App.Current.MainPage = new MainPage();
 
             }

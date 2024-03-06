@@ -64,6 +64,7 @@ namespace BinderApplication.Database
             //Formatting and insertion of journalbase entries
             var document = new BsonDocument
         {
+            { "Email", email },
             { "Date", date},
             { "Title", title},
             { "Entry", entry}
@@ -73,21 +74,25 @@ namespace BinderApplication.Database
             collection.InsertOne(document);
         }
 
-        //public void RetrieveBooksFromDatabase()
-        //{
-        //    var collection = database.GetCollection<BsonDocument>("Books-Fiction");
+        /*
+        public List<JournalEntryModel> RetrieveJournalEntries()
+        {
+            var collection = database.GetCollection<BsonDocument>("Journal");
 
-        //    var filter = Builders<BsonDocument>.Filter.Empty;
-        //    var books = collection.Find(filter).ToList();
+            var filter = Builders<BsonDocument>.Filter.Empty;
+            var journals = collection.Find(filter).ToList();
 
-        //    var bsonString = books.ToJson();
+            var bsonString = journals.ToJson();
 
-        //    // Clean the BSON string
-        //    var cleanedBsonString = CleanBsonString(bsonString);
+            // Clean the BSON string
+            var cleanedBsonString = CleanBsonString(bsonString);
 
-        //    // Deserialize the cleaned BSON string
-        //    var deserializedBooks = DeserializeBooks(cleanedBsonString);
-        //}
+            // Deserialize the cleaned BSON string
+            var deserializedJournals = DeserializeBooks(cleanedBsonString);
+
+            return deserializedJournals;
+        }
+        */
 
         public List<BookModel> RetrieveBooksFromDatabase()
         {
@@ -140,6 +145,16 @@ namespace BinderApplication.Database
             //Eventually we want these to save with an EmailID (the address), but we need our account system to exist first
             collection.InsertOne(document);
         }
+
+        //Stores successfull login credentials so we can call them for retrieving and saving journals, etc
+        private string email = "", password = "";
+        public void StoreLogin(string emailFromLogin, string passwordFromLogin)
+        {
+            email = emailFromLogin;
+            password = passwordFromLogin;
+        }
+        public string GetEmail() { return email; }
+        public string GetPassword() { return password; }
     }
 
 }
