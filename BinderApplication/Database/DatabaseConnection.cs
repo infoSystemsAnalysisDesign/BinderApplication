@@ -73,8 +73,6 @@ namespace BinderApplication.Database
             //Eventually we want these to save with an EmailID (the address), but we need our account system to exist first
             collection.InsertOne(document);
         }
-
-        /*
         public List<JournalEntryModel> RetrieveJournalEntries()
         {
             var collection = database.GetCollection<BsonDocument>("Journal");
@@ -88,11 +86,10 @@ namespace BinderApplication.Database
             var cleanedBsonString = CleanBsonString(bsonString);
 
             // Deserialize the cleaned BSON string
-            var deserializedJournals = DeserializeBooks(cleanedBsonString);
+            var deserializedJournals = DeserializeJournals(cleanedBsonString);
 
             return deserializedJournals;
         }
-        */
 
         public List<BookModel> RetrieveBooksFromDatabase()
         {
@@ -113,7 +110,6 @@ namespace BinderApplication.Database
             return deserializedBooks;
         }
 
-
         public static string CleanBsonString(string bsonString)
         {
             // Remove ObjectId wrapper from _id field
@@ -127,6 +123,10 @@ namespace BinderApplication.Database
             return JsonConvert.DeserializeObject<List<BookModel>>(jsonString);
         }
 
+        public static List<JournalEntryModel> DeserializeJournals(string jsonString)
+        {
+            return JsonConvert.DeserializeObject<List<JournalEntryModel>>(jsonString);
+        }
 
         internal void SaveLogin(string name, string email, string phoneNumber, string password)
         {
