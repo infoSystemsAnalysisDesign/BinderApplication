@@ -26,7 +26,9 @@ namespace BinderApplication
             try
             {
                 // Retrieve books from the database
-                List<BookModel> results = databaseConnection.RetrieveBooksFromDatabase();
+                DatabaseBook dbBook = new DatabaseBook();
+
+                List<BookModel> results = dbBook.RetrieveBooksFromDatabase();
                 foreach (var bookItem in results)
                 {
                     // Access the VolumeInfo directly from the bookItem

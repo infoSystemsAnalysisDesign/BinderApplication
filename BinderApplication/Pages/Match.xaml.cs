@@ -27,7 +27,9 @@ namespace BinderApplication.Pages
             try
             {
                 // Retrieve books from the database
-                var books = databaseConnection.RetrieveBooksFromDatabase();
+                DatabaseBook dbBook = new DatabaseBook();
+
+                var books = dbBook.RetrieveBooksFromDatabase();
                 DisplayBookInfo(books);
             }
             catch (Exception ex)

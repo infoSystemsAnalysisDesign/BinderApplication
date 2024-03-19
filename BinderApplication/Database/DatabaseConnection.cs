@@ -12,7 +12,7 @@ using System.Diagnostics;
 using Newtonsoft.Json;
 using System.Text.RegularExpressions;
 
-
+//SINGLETON CLASS
 namespace BinderApplication.Database
 {
     public class DatabaseConnection
@@ -52,109 +52,6 @@ namespace BinderApplication.Database
         {
             return database;
         }
-
-        internal void SaveJournalEntry(string title, string entry)
-        {
-            // Get a reference to the "journalEntries" collection
-            var collection = database.GetCollection<BsonDocument>("Journal");
-
-            //Adding the date
-            DateTime date = DateTime.Now;
-
-            //Formatting and insertion of journalbase entries
-            var document = new BsonDocument
-        {
-            { "Email", email },
-            { "Date", date},
-            { "Title", title},
-            { "Entry", entry}
-        };
-
-            //Eventually we want these to save with an EmailID (the address), but we need our account system to exist first
-            collection.InsertOne(document);
-        }
-        public List<JournalEntryModel> RetrieveJournalEntries()
-        {
-            var collection = database.GetCollection<BsonDocument>("Journal");
-
-            var filter = Builders<BsonDocument>.Filter.Empty;
-            var journals = collection.Find(filter).ToList();
-
-            var bsonString = journals.ToJson();
-
-            // Clean the BSON string
-            var cleanedBsonString = CleanBsonString(bsonString);
-
-            // Deserialize the cleaned BSON string
-            var deserializedJournals = DeserializeJournals(cleanedBsonString);
-
-            return deserializedJournals;
-        }
-
-        public List<BookModel> RetrieveBooksFromDatabase()
-        {
-            string genre = "Fiction";
-            var collection = database.GetCollection<BsonDocument>("Books-" + genre);
-
-            var filter = Builders<BsonDocument>.Filter.Empty;
-            var books = collection.Find(filter).ToList();
-
-            var bsonString = books.ToJson();
-
-            // Clean the BSON string
-            var cleanedBsonString = CleanBsonString(bsonString);
-
-            // Deserialize the cleaned BSON string
-            var deserializedBooks = DeserializeBooks(cleanedBsonString);
-
-            return deserializedBooks;
-        }
-
-        public static string CleanBsonString(string bsonString)
-        {
-            // Remove ObjectId wrapper from _id field
-            bsonString = Regex.Replace(bsonString, @"ObjectId\(""\w+""\)", "null");
-
-            return bsonString;
-        }
-
-        public static List<BookModel> DeserializeBooks(string jsonString)
-        {
-            return JsonConvert.DeserializeObject<List<BookModel>>(jsonString);
-        }
-
-        public static List<JournalEntryModel> DeserializeJournals(string jsonString)
-        {
-            return JsonConvert.DeserializeObject<List<JournalEntryModel>>(jsonString);
-        }
-
-        internal void SaveLogin(string name, string email, string phoneNumber, string password)
-        {
-            // Get a reference to the "journalEntries" collection
-            var collection = database.GetCollection<BsonDocument>("Login");
-
-            //Formatting and insertion of journalbase entries
-            var document = new BsonDocument
-        {
-            { "Name", name},
-            { "Email", email},
-            { "Phone Number", phoneNumber},
-            {"Password", password }
-        };
-
-            //Eventually we want these to save with an EmailID (the address), but we need our account system to exist first
-            collection.InsertOne(document);
-        }
-
-        //Stores successfull login credentials so we can call them for retrieving and saving journals, etc
-        private string email = "", password = "";
-        public void StoreLogin(string emailFromLogin, string passwordFromLogin)
-        {
-            email = emailFromLogin;
-            password = passwordFromLogin;
-        }
-        public string GetEmail() { return email; }
-        public string GetPassword() { return password; }
     }
 
 }

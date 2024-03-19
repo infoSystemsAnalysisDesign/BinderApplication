@@ -4,6 +4,7 @@ using System.Text.Json;
 using MongoDB.Driver;
 using MongoDB.Bson;
 using BinderApplication.Database;
+using System.Data.Common;
 
 namespace BinderApplication.Pages
 {
@@ -34,7 +35,9 @@ namespace BinderApplication.Pages
             _binderPage?.AddJournalEntry(journalEntry);
 
             var dbConnection = DatabaseConnection.Instance;
-            dbConnection.SaveJournalEntry(entryTitle.Text, entryJournal.Text);
+            DatabaseJournal dbJournal = new DatabaseJournal();
+
+            dbJournal.SaveJournalEntry(entryTitle.Text, entryJournal.Text);
 
             // Navigate back to the Binder page
             Navigation.PopAsync();
