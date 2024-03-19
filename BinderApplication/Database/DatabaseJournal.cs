@@ -22,8 +22,13 @@ namespace BinderApplication.Database
         {
             var collection = database.GetCollection<BsonDocument>("Journal");
             DateTime date = DateTime.Now;
+
+            var dbLogin = DatabaseLogin.Instance;
+            string email = dbLogin.GetEmail();
+
             var document = new BsonDocument
             {
+                { "Email", email},
                 { "Date", date},
                 { "Title", title},
                 { "Entry", entry}
