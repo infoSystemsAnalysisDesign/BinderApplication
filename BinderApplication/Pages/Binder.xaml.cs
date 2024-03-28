@@ -138,7 +138,9 @@ namespace BinderApplication.Pages
             var client = new MongoClient("mongodb://Binder:AlsoBinder1@ac-clelo6g-shard-00-00.ibrxa6e.mongodb.net:27017,ac-clelo6g-shard-00-01.ibrxa6e.mongodb.net:27017,ac-clelo6g-shard-00-02.ibrxa6e.mongodb.net:27017/?ssl=true&replicaSet=atlas-i5m36b-shard-0&authSource=admin&retryWrites=true&w=majority");
             var database = client.GetDatabase("Binder");
             var journalCollection = database.GetCollection<BsonDocument>("Journal");
-            string storedEmail = dbConnection.GetEmail();
+
+            var dbLogin = DatabaseLogin.Instance;
+            string storedEmail = dbLogin.GetEmail();
 
             StackLayout mainStackLayout = new StackLayout();
 
