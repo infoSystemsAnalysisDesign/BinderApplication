@@ -31,8 +31,14 @@
              x:Class="BinderApplication.Pages.Binder">
 
     <StackLayout>
-        <!-- Add your other UI elements for the Binder page here -->
-        <Button Text="Add Journal Entry" Clicked="OnJournalEntryClicked" /> <!-- Button to navigate to Journal Entry page -->
-        <Label Text="" x:Name="labelJournalEntry" /> <!-- Display for the entered journal entry -->
+        <ListView x:Name="JournalListView">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding Title}" Detail="{Binding Date}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Button Text="Add Journal Entry" Clicked="OnJournalEntryClicked" />
     </StackLayout>
 </ContentPage>
