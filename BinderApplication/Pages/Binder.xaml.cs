@@ -43,7 +43,8 @@ namespace BinderApplication.Pages
             var journalCollection = database.GetCollection<BsonDocument>("Journal");
 
             // Retrieve the stored email
-            string storedEmail = dbConnection.GetEmail(); // Assuming GetEmail() returns the correct email
+            var dbLogin = DatabaseLogin.Instance;
+            string storedEmail = dbLogin.GetEmail(); // Assuming GetEmail() returns the correct email
 
             Console.WriteLine($"Stored Email: {storedEmail}"); // Debug statement
 
