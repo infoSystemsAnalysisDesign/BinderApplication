@@ -114,8 +114,8 @@ namespace BinderApplication.Pages
 
         public Binder()
         {
-            InitializeComponent();
             UpdateDisplay();
+            InitializeComponent();
             journalEntries = new List<JournalEntryModel>();
             BindingContext = this;
 
@@ -131,6 +131,11 @@ namespace BinderApplication.Pages
             journalEntries.Add(entry);
             UpdateDisplay();
         }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            UpdateDisplay();
+        }
 
         private async void UpdateDisplay()
         {
@@ -138,12 +143,21 @@ namespace BinderApplication.Pages
             var client = new MongoClient("mongodb://Binder:AlsoBinder1@ac-clelo6g-shard-00-00.ibrxa6e.mongodb.net:27017,ac-clelo6g-shard-00-01.ibrxa6e.mongodb.net:27017,ac-clelo6g-shard-00-02.ibrxa6e.mongodb.net:27017/?ssl=true&replicaSet=atlas-i5m36b-shard-0&authSource=admin&retryWrites=true&w=majority");
             var database = client.GetDatabase("Binder");
             var journalCollection = database.GetCollection<BsonDocument>("Journal");
-
+            
             var dbLogin = DatabaseLogin.Instance;
             string storedEmail = dbLogin.GetEmail();
+            var navigateButton = new Button
+            {
+                Text = "Add Journal Entry"
+            };
+            navigateButton.Clicked += async (sender, args) =>
+            {
+                await Navigation.PushAsync(new JournalEntry(this));
+            };
 
             StackLayout mainStackLayout = new StackLayout();
-
+            
+            mainStackLayout.Children.Add(navigateButton);
 
             var filter = Builders<BsonDocument>.Filter.Eq("Email", storedEmail);
 
