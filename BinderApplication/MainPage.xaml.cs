@@ -1,10 +1,10 @@
 ﻿namespace BinderApplication
 {
-    public partial class MainPage : Shell
+    public partial class Binder : Shell
     {
         // int count = 0;
 
-        public MainPage()
+        public Binder()
         {
             InitializeComponent();
 
