@@ -114,10 +114,12 @@ namespace BinderApplication.Pages
 
         public Binder()
         {
-            InitializeComponent();
             UpdateDisplay();
+            InitializeComponent();
+            
             journalEntries = new List<JournalEntryModel>();
             BindingContext = this;
+            
 
         }
 
@@ -131,18 +133,33 @@ namespace BinderApplication.Pages
             journalEntries.Add(entry);
             UpdateDisplay();
         }
-
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            UpdateDisplay(); // Call UpdateDisplay method every time the page appears
+        }
         private async void UpdateDisplay()
         {
+          
+
             var dbConnection = DatabaseConnection.Instance;
             var client = new MongoClient("mongodb://Binder:AlsoBinder1@ac-clelo6g-shard-00-00.ibrxa6e.mongodb.net:27017,ac-clelo6g-shard-00-01.ibrxa6e.mongodb.net:27017,ac-clelo6g-shard-00-02.ibrxa6e.mongodb.net:27017/?ssl=true&replicaSet=atlas-i5m36b-shard-0&authSource=admin&retryWrites=true&w=majority");
             var database = client.GetDatabase("Binder");
             var journalCollection = database.GetCollection<BsonDocument>("Journal");
             string storedEmail = dbConnection.GetEmail();
-
+            var navigateButton = new Button
+            {
+                Text = "Go to Journal Entry",
+                // Add any other properties you want (e.g., FontSize, BackgroundColor, etc.)
+            };
+            navigateButton.Clicked += async (sender, args) =>
+            {
+                await Navigation.PushAsync(new JournalEntry(this));
+            };
+           
             StackLayout mainStackLayout = new StackLayout();
-
-
+            mainStackLayout.Children.Add(navigateButton);
+           
             var filter = Builders<BsonDocument>.Filter.Eq("Email", storedEmail);
 
             try
@@ -165,7 +182,9 @@ namespace BinderApplication.Pages
                         // Add some padding between each entry
                         var padding = new Thickness(0, 5);
 
+
                         // Add the labels to the stack layout
+                        
                         mainStackLayout.Children.Add(titleLabel);
                         mainStackLayout.Children.Add(dateLabel);
                         mainStackLayout.Children.Add(entryLabel);
@@ -187,18 +206,16 @@ namespace BinderApplication.Pages
                 var errorLabel = new Label { Text = $"Error retrieving journal entries: {ex.Message}" };
                 mainStackLayout.Children.Add(errorLabel);
             }
+             
             // Create a ScrollView and add the stackLayout to it
+            
             var scrollView = new ScrollView();
-            scrollView.Content = mainStackLayout;
+            scrollView.Content = mainStackLayout ;
 
             // Set the content of the page to the scrollView
             Content = scrollView;
-        }
 
 
-        private void OnJournalEntryClicked(object sender, EventArgs e)
-        {
-            Navigation.PushAsync(new JournalEntry(this));
         }
 
     }

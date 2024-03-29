@@ -40,7 +40,7 @@ public partial class SignInPage : ContentPage
                 dbConnection.StoreLogin(email.Text, password.Text);
 
                 // User found, navigate to MainPage
-                App.Current.MainPage = new MainPage();
+                App.Current.MainPage = new Binder();
 
             }
             else

@@ -30,20 +30,7 @@
              x:Class="BinderApplication.Pages.Binder">
 
     <StackLayout>
-        <Button Text="Add Journal Entry" Clicked="OnJournalEntryClicked" />
+        
    
-    <ListView ItemsSource="{Binding journalEntries}">
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <ViewCell>
-                    <StackLayout>
-                        <Label Text="{Binding Title}" />
-                        <Label Text="{Binding Date}" />
-                        <Label Text="{Binding Entry}" />
-                    </StackLayout>
-                </ViewCell>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
 </StackLayout>
 </ContentPage>
