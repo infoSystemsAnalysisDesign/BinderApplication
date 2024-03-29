@@ -4,15 +4,60 @@
              x:Class="BinderApplication.Pages.Genres"
              Title="Genres">
     <ScrollView>
-           <StackLayout Orientation="Horizontal" Spacing="10">
-        <Label Text="Nonfiction" VerticalOptions="Center" />
-        <Switch x:Name="nonfiction" />
-        
-        <Label Text="Fiction" VerticalOptions="Center" />
-        <Switch x:Name="fiction" />
-        
-      
-        <Label>
+           <StackLayout Orientation="Vertical" Spacing="10">
+               
+            <Button x:Name="SaveButton" Text="Save" />
+
+            <Label Text="Drama" VerticalOptions="Center" />
+            <Switch x:Name="Drama" AutomationId="Drama" />
+
+            <Label Text="Essay" VerticalOptions="Center" />
+            <Switch x:Name="Essay" AutomationId="Essay" />
+
+            <Label Text="Fiction" VerticalOptions="Center" />
+            <Switch x:Name="Fiction" AutomationId="Fiction" />
+
+            <Label Text="History" VerticalOptions="Center" />
+            <Switch x:Name="History" AutomationId="History" />
+
+            <Label Text="Horror" VerticalOptions="Center" />
+            <Switch x:Name="Horror" AutomationId="Horror" />
+
+            <Label Text="NonFiction" VerticalOptions="Center" />
+            <Switch x:Name="NonFiction" AutomationId="NonFiction" />
+
+            <Label Text="Novel" VerticalOptions="Center" />
+            <Switch x:Name="Novel" AutomationId="Novel" />
+
+            <Label Text="Philosophy" VerticalOptions="Center" />
+            <Switch x:Name="Philosophy" AutomationId="Philosophy" />
+
+            <Label Text="Poetry" VerticalOptions="Center" />
+            <Switch x:Name="Poetry" AutomationId="Poetry" />
+
+            <Label Text="Politics" VerticalOptions="Center" />
+            <Switch x:Name="Politics" AutomationId="Politics" />
+
+            <Label Text="Psychology" VerticalOptions="Center" />
+            <Switch x:Name="Psychology" AutomationId="Psychology" />
+
+            <Label Text="Romance" VerticalOptions="Center" />
+            <Switch x:Name="Romance" AutomationId="Romance" />
+
+            <Label Text="Science" VerticalOptions="Center" />
+            <Switch x:Name="Science" AutomationId="Science" />
+
+            <Label Text="Spirituality" VerticalOptions="Center" />
+            <Switch x:Name="Spirituality" AutomationId="Spirituality" />
+
+            <Label Text="Suspense" VerticalOptions="Center" />
+            <Switch x:Name="Suspense" AutomationId="Suspense" />
+
+            <Label Text="Thriller" VerticalOptions="Center" />
+            <Switch x:Name="Thriller" AutomationId="Thriller" />
+               
+               
+            <Label>
             <Label.Triggers>
                 <DataTrigger TargetType="Label"
                          Binding="{Binding Source={x:Reference styleSwitch}, Path=IsToggled}"
