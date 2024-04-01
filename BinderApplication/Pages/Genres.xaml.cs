@@ -8,6 +8,8 @@ public partial class Genres : ContentPage
 {
     //Why C# gotta be quirky and call Hashmaps dictionaries
     Dictionary<string, bool> stringBooleanMap;
+    int switchCount = 0;
+
     public Genres()
 	{
 		InitializeComponent();
@@ -19,7 +21,11 @@ public partial class Genres : ContentPage
          * We are going to need a way to read in the hashmap values
          * from the database.
          * We can then use those values to have the toggles that should be on be on already
-         * Example: Drama.IsToggled = true;
+         * 
+         * Example: 
+         * Drama.IsToggled = true;
+         * switchCount++;
+         * 
          * I need to make it so you are given a default hashmap of all false values tied
          * to your account at account creation.
          * This will require gettin grid of all current accounts :(
@@ -28,8 +34,6 @@ public partial class Genres : ContentPage
          * version of the genre page that requires you to pick at leats 4 genres.
          * The genres page will also need to read in the hashmap values.
          */
-
-        Drama.IsToggled = true;
 
         SaveButton.Clicked += OnSaveButtonClicked;
 
@@ -53,13 +57,14 @@ public partial class Genres : ContentPage
 
     void OnSaveButtonClicked(object sender, EventArgs e)
 	{
-        //CREATE LOGIC CODE
-        DisplayAlert("Success", "Save Success!", "OK");
+        if (switchCount < 4)
+        {
+            //Add actual saving function
 
-        /*
-         * if (genres < 4)
-         * DisplayAlert("Oops", "Please select at least 4 genres!", "OK");
-        */
+            DisplayAlert("Oops", "Please select at least 4 genres!", "OK");
+        }
+        else
+            DisplayAlert("Success", "Save Success!", "OK");
     }
 
     void OnSwitchToggle(object sender, EventArgs e)
@@ -69,15 +74,15 @@ public partial class Genres : ContentPage
 
         if (switchSender.IsToggled)
         {
-            DisplayAlert("It worked", "Switch is Toggled ON", "OK");    //testing
             switchName = switchSender.AutomationId;
             stringBooleanMap[switchName] = true;
+            switchCount++;
         }
         if (!switchSender.IsToggled)
         {
-            DisplayAlert("It worked", "Switch is Toggled OFF", "OK");   //testing
             switchName = switchSender.AutomationId;
             stringBooleanMap[switchName] = false;
+            switchCount--;
         }
     }
 }
