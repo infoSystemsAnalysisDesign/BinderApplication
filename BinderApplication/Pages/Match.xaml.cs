@@ -1,8 +1,5 @@
 using Microsoft.Maui.Controls;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 using BinderApplication.Database;
 
 namespace BinderApplication.Pages
@@ -11,111 +8,84 @@ namespace BinderApplication.Pages
     {
         private readonly DatabaseConnection databaseConnection = DatabaseConnection.Instance;
         private MatchViewModel viewModel;
+        private CarouselView carouselView;
 
         public Match()
         {
-            //InitializeComponent();
-            //LoadData();
-
             InitializeComponent();
             viewModel = new MatchViewModel(databaseConnection);
             BindingContext = viewModel;
+
+            SetupUI();
         }
 
-        private async Task LoadData()
+        private void SetupUI()
         {
-            try
+            carouselView = new CarouselView
             {
-                // Retrieve books from the database
-                DatabaseBook dbBook = new DatabaseBook();
-
-                var books = dbBook.RetrieveBooksFromDatabase();
-                DisplayBookInfo(books);
-            }
-            catch (Exception ex)
-            {
-                // Handle exception
-            }
-        }
-
-        private void DisplayBookInfo(List<BookModel> books)
-        {
-            var stackLayout = new StackLayout();
-
-            foreach (var book in books)
-            {
-                var volumeInfo = book.VolumeInfo;
-
-                StringBuilder displayText = new StringBuilder();
-                displayText.AppendLine($"Title: {volumeInfo.Title}");
-                displayText.AppendLine($"Authors: {string.Join(", ", volumeInfo.Authors ?? new List<string>())}");
-                displayText.AppendLine($"Publisher: {volumeInfo.Publisher}");
-                displayText.AppendLine($"Published Date: {volumeInfo.PublishedDate}");
-                displayText.AppendLine($"Description: {volumeInfo.Description}");
-                displayText.AppendLine($"Page Count: {volumeInfo.PageCount}");
-                displayText.AppendLine($"Print Type: {volumeInfo.PrintType}");
-                displayText.AppendLine($"Categories: {string.Join(", ", volumeInfo.Categories ?? new List<string>())}");
-                displayText.AppendLine($"Average Rating: {volumeInfo.AverageRating}");
-                displayText.AppendLine($"Ratings Count: {volumeInfo.RatingsCount}");
-                displayText.AppendLine($"Maturity Rating: {volumeInfo.MaturityRating}");
-                displayText.AppendLine($"Language: {volumeInfo.Language}");
-                displayText.AppendLine($"Preview Link: {volumeInfo.PreviewLink}");
-                displayText.AppendLine($"Info Link: {volumeInfo.InfoLink}");
-
-                foreach (var identifier in volumeInfo.IndustryIdentifiers ?? new List<IndustryIdentifier>())
+                ItemTemplate = new DataTemplate(() =>
                 {
-                    displayText.AppendLine($"Identifier Type: {identifier.Type}");
-                    displayText.AppendLine($"Identifier: {identifier.Identifier}");
-                }
-
-                var grid = new Grid();
-
-                if (volumeInfo.ImageLinks != null)
-                {
-                    string smallThumbURL = volumeInfo.ImageLinks.SmallThumbnail;
-
-                    if (smallThumbURL.StartsWith("http://"))
+                    var cardLayout = new StackLayout
                     {
-                        smallThumbURL = smallThumbURL.Replace("http://", "https://");
-                    }
-                    else if (!smallThumbURL.StartsWith("https://"))
-                    {
-                        smallThumbURL = "https://" + smallThumbURL;
-                    }
-
-                    Image smallThumbnail = new Image
-                    {
-                        Source = smallThumbURL,
-                        WidthRequest = 100,
-                        HeightRequest = 150
+                        Padding = new Thickness(10)
                     };
 
-                    grid.Children.Add(smallThumbnail);
-                    Grid.SetRow(smallThumbnail, 0);
-                }
+                    // Create Front Side
+                    var frontLayout = new StackLayout
+                    {
+                        HorizontalOptions = LayoutOptions.Center,
+                        VerticalOptions = LayoutOptions.Center
+                    };
 
-                var label = new Label
-                {
-                    Text = displayText.ToString(),
-                    VerticalOptions = LayoutOptions.Start,
-                    HorizontalOptions = LayoutOptions.Start,
-                    HorizontalTextAlignment = TextAlignment.Start,
-                    VerticalTextAlignment = TextAlignment.Start
-                };
+                    var frontImage = new Image
+                    {
+                        WidthRequest = 200,
+                        HeightRequest = 300,
+                        Aspect = Aspect.AspectFit // or Aspect.AspectFill depending on your preference
+                    };
+                    frontImage.SetBinding(Image.SourceProperty, "VolumeInfo.ImageLinks.Thumbnail");
 
-                grid.Children.Add(label);
-                Grid.SetRow(label, 1);
+                    frontLayout.Children.Add(frontImage);
 
-                grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-                grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                    // Create Back Side
+                    var backLayout = new StackLayout
+                    {
+                        HorizontalOptions = LayoutOptions.Center,
+                        VerticalOptions = LayoutOptions.Center,
+                        IsVisible = false // Initially hidden
+                    };
 
-                stackLayout.Children.Add(grid);
-            }
+                    var backLabel = new Label
+                    {
+                        HorizontalOptions = LayoutOptions.Center,
+                        VerticalOptions = LayoutOptions.Center,
+                        HorizontalTextAlignment = TextAlignment.Center,
+                        FontSize = 20
+                    };
+                    backLabel.SetBinding(Label.TextProperty, "VolumeInfo.Title");
 
-            Content = new ScrollView
-            {
-                Content = stackLayout
+                    backLayout.Children.Add(backLabel);
+
+                    cardLayout.Children.Add(frontLayout);
+                    cardLayout.Children.Add(backLayout);
+
+                    var tapGestureRecognizer = new TapGestureRecognizer();
+                    tapGestureRecognizer.Tapped += (s, e) =>
+                    {
+                        // Toggle between front and back sides on tap
+                        frontLayout.IsVisible = !frontLayout.IsVisible;
+                        backLayout.IsVisible = !backLayout.IsVisible;
+                    };
+
+                    cardLayout.GestureRecognizers.Add(tapGestureRecognizer);
+
+                    return cardLayout;
+                })
             };
+
+            carouselView.SetBinding(CarouselView.ItemsSourceProperty, "BookItems");
+
+            Content = carouselView;
         }
     }
 }
