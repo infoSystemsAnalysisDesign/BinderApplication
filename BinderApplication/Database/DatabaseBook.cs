@@ -7,6 +7,28 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
+/*
+ * PERSONAL NOTE:
+ * Store the BSON document before its cleansed with the first entry being the current date
+ * Auto-generate the table if not exists (should be automatic)
+ * Have DatabaseBook check if its new day or same day
+ * 
+ * If its a new day:
+ * Clear table data
+ * Store date
+ * Store BSON
+ * 
+ * If is the same day
+ * Ignore data
+ * Pull Books
+ * 
+ * Both use this function from Books, build a seperate check date function and use that to determine
+ * whether to pull new books or the same.
+ * 
+ * May need to refactor the DatabaseBook into a "SelectBooks" and "GrabBooks"
+ */ 
+
+
 namespace BinderApplication.Database
 {
     public class DatabaseBook
