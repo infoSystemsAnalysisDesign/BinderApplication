@@ -11,6 +11,8 @@ public partial class App : Application
         InitializeComponent();
         //var databaseConnection = DatabaseConnection.Instance;   //technically not needed unless we ever have sign-in permanence
         MainPage = new NavigationPage(new SignInPage());
+
+        DatabaseGenre dbGenre = new DatabaseGenre();
        
         Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping(nameof(BorderlessEntry), (handler, view) =>
         {

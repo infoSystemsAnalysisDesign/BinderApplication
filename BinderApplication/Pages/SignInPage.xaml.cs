@@ -39,6 +39,9 @@ public partial class SignInPage : ContentPage
                 var dbLogin = DatabaseLogin.Instance;
                 dbLogin.StoreLogin(email.Text, password.Text);
 
+                DatabaseGenre dbGenre = new DatabaseGenre();
+                dbGenre.DoesGenresExist();
+
                 // User found, navigate to MainPage
                 App.Current.MainPage = new Binder();
 
