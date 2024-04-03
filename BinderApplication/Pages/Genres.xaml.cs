@@ -56,20 +56,6 @@ public partial class Genres : ContentPage
         Thriller.Toggled += OnSwitchToggle;
     }
 
-    protected override void OnAppearing()
-    {
-        base.OnAppearing();
-
-        var firstTimeUser = EnableFirstTimeUserState.Instance;
-        bool firstTimeState = firstTimeUser.IsFirstTimeUser;
-
-        if (firstTimeState == true)
-        {
-            FirstTimeUserState();
-            firstTimeUser.IsFirstTimeUser = false;
-        }
-    }
-
     private void OnSaveButtonClicked(object sender, EventArgs e)
 	{
         if (switchCount < 4)
@@ -103,11 +89,5 @@ public partial class Genres : ContentPage
             stringBooleanMap[switchName] = false;
             switchCount--;
         }
-    }
-
-    private void FirstTimeUserState()
-    {
-        //string message = "Welcome to Binder!\n\nWe only want you to see books that you will love, so please select at least 4 genres of literature you enjoy!";
-        //DisplayAlert("Welcome!", message, "Let's Go!");
     }
 }
