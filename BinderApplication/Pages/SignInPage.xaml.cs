@@ -3,7 +3,6 @@ using MongoDB.Driver;
 using BinderApplication.Database;
 using BinderApplication.Services;
 using BinderApplication.Pages;
-using BinderApplication.States;
 
 namespace BinderApplication;
 
@@ -13,6 +12,7 @@ public partial class SignInPage : ContentPage
 	{
         InitializeComponent();
 	}
+
     private async void OnSignInButtonClicked(object sender, EventArgs e)
     {
         try
@@ -52,9 +52,6 @@ public partial class SignInPage : ContentPage
                 else
                 {
                     //User found, but they don't have 4 genres
-                    var firstTimeUser = EnableFirstTimeUserState.Instance;
-                    firstTimeUser.IsFirstTimeUser = true;
-
                     string message = "We only want you to see books that you will love, so please select at least 4 genres of literature you enjoy!";
                     DisplayAlert("Welcome to Binder!", message, "Let's Go!");
 
