@@ -9,54 +9,17 @@ public partial class Genres : ContentPage
 {
     //Why C# gotta be quirky and call Hashmaps dictionaries
     //Hashmap to store whether a switch is flipped on or off
-    // Initialize the dictionary with all genres set to false
-    Dictionary<string, bool> stringBooleanMap = new Dictionary<string, bool>()
-        {
-            { "Drama", false },
-            { "Essay", false },
-            { "Fiction", false },
-            { "History", false },
-            { "Horror", false },
-            { "NonFiction", false },
-            { "Novel", false },
-            { "Philosophy", false },
-            { "Poetry", false },
-            { "Politics", false },
-            { "Psychology", false },
-            { "Romance", false },
-            { "Science", false },
-            { "Spirituality", false },
-            { "Suspense", false },
-            { "Thriller", false }
-        };
+    Dictionary<string, bool> stringBooleanMap;
     int switchCount = 0;
     DatabaseGenre dbGenre = new DatabaseGenre();
 
     public Genres()
 	{
 		InitializeComponent();
-
-        
-
-        // Now all genres are initialized to false in the stringBooleanMap dictionary
-
-
         /*
-         * We are going to need a way to read in the hashmap values
-         * from the database.
-         * We can then use those values to have the toggles that should be on be on already
-         * 
          * Example: 
          * Drama.IsToggled = true;
          * switchCount++;
-         * 
-         * I need to make it so you are given a default hashmap of all false values tied
-         * to your account at account creation.
-         * This will require gettin grid of all current accounts :(
-         * If genres < 4 (so it covers below min genres and when 
-         * account is first created with all false) Have the app pull up a modified
-         * version of the genre page that requires you to pick at leats 4 genres.
-         * The genres page will also need to read in the hashmap values.
          */
 
         SaveButton.Clicked += OnSaveButtonClicked;
@@ -77,6 +40,20 @@ public partial class Genres : ContentPage
         Spirituality.Toggled += OnSwitchToggle;
         Suspense.Toggled += OnSwitchToggle;
         Thriller.Toggled += OnSwitchToggle;
+
+
+        stringBooleanMap = dbGenre.ReadGenresForAccount();
+        foreach (KeyValuePair<string, bool> genre in stringBooleanMap)
+        {
+            if (genre.Value == true)
+            {
+                var switchControl = this.FindByName<Microsoft.Maui.Controls.Switch>(genre.Key);
+                if (switchControl != null)
+                {
+                    switchControl.IsToggled = true;
+                }
+            }
+        }
     }
 
     private void OnSaveButtonClicked(object sender, EventArgs e)

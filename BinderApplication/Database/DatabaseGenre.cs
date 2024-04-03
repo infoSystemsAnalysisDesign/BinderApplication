@@ -10,10 +10,8 @@ using System.Threading.Tasks;
 
 namespace BinderApplication.Database
 {
-    /*
+/*
  * PERSONAL NOTE:
- * Store the BSON document before its cleansed with the first entry being the current date
- * Auto-generate the table if not exists (should be automatic)
  * Have DatabaseBook check if its new day or same day
  * 
  * If its a new day:
@@ -29,10 +27,6 @@ namespace BinderApplication.Database
  * whether to pull new books or the same.
  * 
  * May need to refactor the DatabaseBook into a "SelectBooks" and "GrabBooks"
- * 
- * --
- * 
- * After app login, check if genre table for user exists
  */
 
     public class DatabaseGenre
@@ -78,7 +72,6 @@ namespace BinderApplication.Database
             var genresCollection = database.GetCollection<BsonDocument>("User-Genres");
             var filter = Builders<BsonDocument>.Filter.Eq("Email", email);
             var update = Builders<BsonDocument>.Update
-                .Set("Date", DateTime.Now.ToString("yyyy-MM-dd"))
                 .Set("Drama", drama)
                 .Set("Essay", essay)
                 .Set("Fiction", fiction)
@@ -97,6 +90,51 @@ namespace BinderApplication.Database
                 .Set("Thriller", thriller);
 
             genresCollection.UpdateOne(filter, update, new UpdateOptions { IsUpsert = true });
+        }
+
+        public Dictionary<string, bool> ReadGenresForAccount()
+        {
+            var dbLogin = DatabaseLogin.Instance;
+            string email = dbLogin.GetEmail();
+            var genresCollection = database.GetCollection<BsonDocument>("User-Genres");
+            var filter = Builders<BsonDocument>.Filter.Eq("Email", email);
+            var document = genresCollection.Find(filter).FirstOrDefault();
+
+            if (document == null)
+            {
+                Dictionary<string, bool> stringBooleanMap = new Dictionary<string, bool>()
+                {
+                    { "Drama", false },
+                    { "Essay", false },
+                    { "Fiction", false },
+                    { "History", false },
+                    { "Horror", false },
+                    { "NonFiction", false },
+                    { "Novel", false },
+                    { "Philosophy", false },
+                    { "Poetry", false },
+                    { "Politics", false },
+                    { "Psychology", false },
+                    { "Romance", false },
+                    { "Science", false },
+                    { "Spirituality", false },
+                    { "Suspense", false },
+                    { "Thriller", false }
+                };
+
+                return stringBooleanMap;
+            }
+
+            var genres = new Dictionary<string, bool>();
+            foreach (var element in document.Elements)
+            {
+                if (element.Name != "_id" && element.Name != "Email" && element.Value.IsBoolean)
+                {
+                    genres.Add(element.Name, element.Value.AsBoolean);
+                }
+            }
+
+            return genres;
         }
 
     }
