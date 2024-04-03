@@ -42,39 +42,62 @@ namespace BinderApplication.Database
         public DatabaseGenre()
         {
             this.database = DatabaseConnection.Instance.GetDatabase();
+            //GenerateGenresForAccount(); //TESTING!!
+            //UpdateGenresForAccount(); //TESTING!!
         }
 
         public bool DoesGenresExist()
         {
             var dbLogin = DatabaseLogin.Instance;
             string email = dbLogin.GetEmail();
-            var collectionNames = database.ListCollectionNames().ToList();
+            var genresCollection = database.GetCollection<BsonDocument>("User-Genres");
 
-            string genresCollectionOfUser = "User-Genres-";
-            genresCollectionOfUser += email;
-            Debug.WriteLine("\n\n\n\n" + genresCollectionOfUser + "\n\n\n\n");
+            var filter = Builders<BsonDocument>.Filter.Eq("Email", email);
+            var document = genresCollection.Find(filter).Limit(1).FirstOrDefault();
 
-
-            if (collectionNames.Any(name => name == genresCollectionOfUser))
+            if (document != null)
             {
-                Debug.WriteLine("\n\n\n\nCollection exists in the 'Binder' database!\n\n\n\n"); //testing
+                Debug.WriteLine("\n\n\n\nDocument exists in the 'User-Genres' collection!\n\n\n\n"); //testing
                 return true;
             }
             else
             {
-                Debug.WriteLine("\n\n\n\nCollection does not exist in the 'Binder' database!\n\n\n\n"); //testing
+                Debug.WriteLine("\n\n\n\nDocument does not exist in the 'User-Genres' collection!\n\n\n\n"); //testing
                 return false;
             }
         }
 
-        private void GrabGenres()
-        {
 
+        public void UpdateGenresForAccount(bool drama, bool essay, bool fiction, bool history, 
+            bool horror, bool nonfiction, bool novel, bool philosophy, bool poetry, bool politics,
+            bool psychology, bool romance, bool science, bool spirituality, bool suspense, bool thriller)
+        {
+            var dbLogin = DatabaseLogin.Instance;
+            string email = dbLogin.GetEmail();
+
+            var genresCollection = database.GetCollection<BsonDocument>("User-Genres");
+            var filter = Builders<BsonDocument>.Filter.Eq("Email", email);
+            var update = Builders<BsonDocument>.Update
+                .Set("Date", DateTime.Now.ToString("yyyy-MM-dd"))
+                .Set("Drama", drama)
+                .Set("Essay", essay)
+                .Set("Fiction", fiction)
+                .Set("History", history)
+                .Set("Horror", horror)
+                .Set("NonFiction", nonfiction)
+                .Set("Novel", novel)
+                .Set("Philosophy", philosophy)
+                .Set("Poetry", poetry)
+                .Set("Politics", politics)
+                .Set("Psychology", psychology)
+                .Set("Romance", romance)
+                .Set("Science", science)
+                .Set("Spirituality", spirituality)
+                .Set("Suspense", suspense)
+                .Set("Thriller", thriller);
+
+            genresCollection.UpdateOne(filter, update, new UpdateOptions { IsUpsert = true });
         }
 
-        private void GenerateHashTable()
-        {
-
-        }
     }
 }
