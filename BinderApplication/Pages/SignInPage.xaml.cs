@@ -2,6 +2,8 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using BinderApplication.Database;
 using BinderApplication.Services;
+using BinderApplication.Pages;
+using BinderApplication.States;
 
 namespace BinderApplication;
 
@@ -40,10 +42,24 @@ public partial class SignInPage : ContentPage
                 dbLogin.StoreLogin(email.Text, password.Text);
 
                 DatabaseGenre dbGenre = new DatabaseGenre();
-                dbGenre.DoesGenresExist();
+                bool doesUserhaveGenres = dbGenre.DoesGenresExist();
 
-                // User found, navigate to MainPage
-                App.Current.MainPage = new Binder();
+                if (doesUserhaveGenres == true)
+                {
+                    // User found, navigate to MainPage
+                    ReturnToMainPage();
+                }
+                else
+                {
+                    //User found, but they don't have 4 genres
+                    var firstTimeUser = EnableFirstTimeUserState.Instance;
+                    firstTimeUser.IsFirstTimeUser = true;
+
+                    string message = "We only want you to see books that you will love, so please select at least 4 genres of literature you enjoy!";
+                    DisplayAlert("Welcome to Binder!", message, "Let's Go!");
+
+                    App.Current.MainPage = new Genres();
+                }
 
             }
             else
@@ -63,5 +79,10 @@ public partial class SignInPage : ContentPage
     {
         //await Shell.Current.GoToAsync("//SignUp");
         await Navigation.PushAsync(new SignUpPage());
+    }
+
+    public void ReturnToMainPage()
+    {
+        App.Current.MainPage = new Binder();
     }
 }

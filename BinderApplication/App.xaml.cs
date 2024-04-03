@@ -1,6 +1,7 @@
 ﻿using Microsoft.Maui.Platform;
 using BinderApplication.Handlers;
 using BinderApplication.Database;
+using BinderApplication.Pages;
 
 namespace BinderApplication;
 

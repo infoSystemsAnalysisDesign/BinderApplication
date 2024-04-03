@@ -1,3 +1,4 @@
+using BinderApplication.States;
 using Microsoft.Maui.Graphics;
 using System.Diagnostics;
 using System.Linq.Expressions;
@@ -55,19 +56,37 @@ public partial class Genres : ContentPage
         Thriller.Toggled += OnSwitchToggle;
     }
 
-    void OnSaveButtonClicked(object sender, EventArgs e)
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        var firstTimeUser = EnableFirstTimeUserState.Instance;
+        bool firstTimeState = firstTimeUser.IsFirstTimeUser;
+
+        if (firstTimeState == true)
+        {
+            FirstTimeUserState();
+            firstTimeUser.IsFirstTimeUser = false;
+        }
+    }
+
+    private void OnSaveButtonClicked(object sender, EventArgs e)
 	{
         if (switchCount < 4)
         {
-            //Add actual saving function
-
             DisplayAlert("Oops", "Please select at least 4 genres!", "OK");
         }
         else
-            DisplayAlert("Success", "Save Success!", "OK");
+        {
+            DisplayAlert("Success", "Save Success", "OK");
+
+            //This is so stupid but it is the only way I can get it working
+            SignInPage signInPage = new SignInPage();
+            signInPage.ReturnToMainPage();
+        }
     }
 
-    void OnSwitchToggle(object sender, EventArgs e)
+    private void OnSwitchToggle(object sender, EventArgs e)
     {
         string switchName;
         var switchSender = (Microsoft.Maui.Controls.Switch)sender;
@@ -84,5 +103,11 @@ public partial class Genres : ContentPage
             stringBooleanMap[switchName] = false;
             switchCount--;
         }
+    }
+
+    private void FirstTimeUserState()
+    {
+        //string message = "Welcome to Binder!\n\nWe only want you to see books that you will love, so please select at least 4 genres of literature you enjoy!";
+        //DisplayAlert("Welcome!", message, "Let's Go!");
     }
 }

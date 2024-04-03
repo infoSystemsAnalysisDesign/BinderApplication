@@ -44,7 +44,7 @@ namespace BinderApplication.Database
             this.database = DatabaseConnection.Instance.GetDatabase();
         }
 
-        public void DoesGenresExist()
+        public bool DoesGenresExist()
         {
             var dbLogin = DatabaseLogin.Instance;
             string email = dbLogin.GetEmail();
@@ -58,10 +58,12 @@ namespace BinderApplication.Database
             if (collectionNames.Any(name => name == genresCollectionOfUser))
             {
                 Debug.WriteLine("\n\n\n\nCollection exists in the 'Binder' database!\n\n\n\n"); //testing
+                return true;
             }
             else
             {
                 Debug.WriteLine("\n\n\n\nCollection does not exist in the 'Binder' database!\n\n\n\n"); //testing
+                return false;
             }
         }
 
