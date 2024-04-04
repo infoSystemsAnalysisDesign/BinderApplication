@@ -11,7 +11,7 @@ public partial class Genres : ContentPage
     //Hashmap to store whether a switch is flipped on or off
     Dictionary<string, bool> stringBooleanMap;
     int switchCount = 0;
-    DatabaseGenre dbGenre = new DatabaseGenre();
+    DatabaseGenre dbGenre = DatabaseGenre.Instance;
 
     public Genres()
 	{

@@ -28,7 +28,10 @@ namespace BinderApplication
                 // Retrieve books from the database
                 DatabaseBook dbBook = new DatabaseBook();
 
-                List<BookModel> results = dbBook.RetrieveBooksFromDatabase();
+                var dbGenre = DatabaseGenre.Instance;
+                var genreList = dbGenre.GetTrueGenresAsList();
+
+                List<BookModel> results = dbBook.RetrieveBooksFromDatabase(genreList);
                 foreach (var bookItem in results)
                 {
                     // Access the VolumeInfo directly from the bookItem

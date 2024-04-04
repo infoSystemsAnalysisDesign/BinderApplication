@@ -41,7 +41,7 @@ public partial class SignInPage : ContentPage
                 var dbLogin = DatabaseLogin.Instance;
                 dbLogin.StoreLogin(email.Text, password.Text);
 
-                DatabaseGenre dbGenre = new DatabaseGenre();
+                var dbGenre = DatabaseGenre.Instance;
                 bool doesUserhaveGenres = dbGenre.DoesGenresExist();
 
                 if (doesUserhaveGenres == true)

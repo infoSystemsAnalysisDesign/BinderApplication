@@ -9,8 +9,6 @@ using Newtonsoft.Json;
 
 /*
  * PERSONAL NOTE:
- * Store the BSON document before its cleansed with the first entry being the current date
- * Auto-generate the table if not exists (should be automatic)
  * Have DatabaseBook check if its new day or same day
  * 
  * If its a new day:
@@ -26,7 +24,7 @@ using Newtonsoft.Json;
  * whether to pull new books or the same.
  * 
  * May need to refactor the DatabaseBook into a "SelectBooks" and "GrabBooks"
- */ 
+ */
 
 
 namespace BinderApplication.Database
@@ -43,17 +41,12 @@ namespace BinderApplication.Database
             this.database = DatabaseConnection.Instance.GetDatabase();
         }
 
-        public List<BookModel> RetrieveBooksFromDatabase()
+        public List<BookModel> RetrieveBooksFromDatabase(List<string> trueGenres)
         {
             //All genres (how we do it for now for testing)
-            List<string> genres = new List<string> { "Drama", "Essay", "Fiction", "History", "Horror", "NonFiction", "Novel", "Philosophy", "Poetry", "Politics", "Psychology", "Romance", "Science", "Spirituality", "Suspense", "Thriller" };
-
-            //Randomly select amount of genres (also for testing)
+            List<string> genres = trueGenres;
             Random random = new Random();
-            int numGenresToPullFrom = random.Next(5, 17);
-
-            //Randomize the genres list and take the first 'numGenresToPullFrom' genres
-            genres = genres.OrderBy(g => random.Next()).Take(numGenresToPullFrom).ToList();
+            int numGenresToPullFrom = genres.Count;
 
             //Calculate how many books to pull from each genre
             int booksPerGenre = swipeLimit / numGenresToPullFrom;

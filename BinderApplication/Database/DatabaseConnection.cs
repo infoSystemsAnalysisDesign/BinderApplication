@@ -6,7 +6,6 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using MongoDB.Driver;
 using MongoDB.Bson;
-
 using Microsoft.Maui.Controls;
 using System.Diagnostics;
 using Newtonsoft.Json;
@@ -20,7 +19,7 @@ namespace BinderApplication.Database
         private static readonly Lazy<DatabaseConnection> instance = new Lazy<DatabaseConnection>(() => new DatabaseConnection());
         private readonly IMongoDatabase database;
 
-        private DatabaseConnection()
+        public DatabaseConnection()
         {
             const string connectionUri = "mongodb://Binder:AlsoBinder1@ac-clelo6g-shard-00-00.ibrxa6e.mongodb.net:27017,ac-clelo6g-shard-00-01.ibrxa6e.mongodb.net:27017,ac-clelo6g-shard-00-02.ibrxa6e.mongodb.net:27017/?ssl=true&replicaSet=atlas-i5m36b-shard-0&authSource=admin&retryWrites=true&w=majority";
 
@@ -52,6 +51,54 @@ namespace BinderApplication.Database
         {
             return database;
         }
+
+
+        public async Task SaveCarouselLiked(BookModel carouselData)
+        {
+            try
+            {
+                var collection = database.GetCollection<BookModel>("Liked");
+                await collection.InsertOneAsync(carouselData);
+            }
+            catch (Exception ex)
+            {
+                // Handle exception
+                throw;
+            }
+        }
+        public async Task SaveCarouselHate(BookModel carouselData)
+        {
+            try
+            {
+                var collection = database.GetCollection<BookModel>("Hate");
+                await collection.InsertOneAsync(carouselData);
+            }
+            catch (Exception ex)
+            {
+                // Handle exception
+                throw;
+            }
+        }
+
+
     }
 
 }
+//This old code + from the match page actually saves whole carosuel to page 
+//public async Task SaveCarouselDataAsync(List<BookModel> carouselData)
+//{
+//    try
+//    {
+//        // Here you should implement the logic to save carouselData to your MongoDB database
+//        // For example, you can use the MongoDB C# driver to interact with your database
+//        // Sample code for saving data to MongoDB using the driver:
+//         var collection = database.GetCollection<BookModel>("Liked");
+//         await collection.InsertManyAsync(carouselData);
+//    }
+//    catch (Exception ex)
+//    {
+//        // Handle exception
+//        throw;
+//    }
+//}
+

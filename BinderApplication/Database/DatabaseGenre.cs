@@ -10,34 +10,17 @@ using System.Threading.Tasks;
 
 namespace BinderApplication.Database
 {
-/*
- * PERSONAL NOTE:
- * Have DatabaseBook check if its new day or same day
- * 
- * If its a new day:
- * Clear table data
- * Store date
- * Store BSON
- * 
- * If is the same day
- * Ignore data
- * Pull Books
- * 
- * Both use this function from Books, build a seperate check date function and use that to determine
- * whether to pull new books or the same.
- * 
- * May need to refactor the DatabaseBook into a "SelectBooks" and "GrabBooks"
- */
-
     public class DatabaseGenre
     {
+        private static readonly Lazy<DatabaseGenre> instance = new Lazy<DatabaseGenre>(() => new DatabaseGenre());
+        public static DatabaseGenre Instance => instance.Value;
+
+
         private readonly IMongoDatabase database;
 
-        public DatabaseGenre()
+        private DatabaseGenre()
         {
             this.database = DatabaseConnection.Instance.GetDatabase();
-            //GenerateGenresForAccount(); //TESTING!!
-            //UpdateGenresForAccount(); //TESTING!!
         }
 
         public bool DoesGenresExist()
@@ -60,7 +43,6 @@ namespace BinderApplication.Database
                 return false;
             }
         }
-
 
         public void UpdateGenresForAccount(bool drama, bool essay, bool fiction, bool history, 
             bool horror, bool nonfiction, bool novel, bool philosophy, bool poetry, bool politics,
@@ -137,5 +119,20 @@ namespace BinderApplication.Database
             return genres;
         }
 
+        public List<string> GetTrueGenresAsList()
+        {
+            var genres = ReadGenresForAccount();
+            var trueGenres = new List<string>();
+
+            foreach (var genre in genres)
+            {
+                if (genre.Value)
+                {
+                    trueGenres.Add(genre.Key);
+                }
+            }
+
+            return trueGenres;
+        }
     }
 }

@@ -5,6 +5,7 @@ namespace BinderApplication
 {
     public class BookModel
     {
+        public string? Email { get; set; }
         public string? Kind { get; set; }
         public string? Id { get; set; }
         public string? Etag { get; set; }
