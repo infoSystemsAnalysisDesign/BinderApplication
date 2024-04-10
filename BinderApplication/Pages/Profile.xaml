@@ -11,7 +11,7 @@
             HorizontalOptions="Center" />
     <Button Text="User Info" Clicked="OnUserInfoButtonClicked"/>
     <Button Text="Liked List" Clicked="OnLikedButtonClicked"/>
-        <Button Text="History" Clicked="OnHistoryButtonClicked"/>
+        <Button Text="Hate List" Clicked="OnHistoryButtonClicked"/>
         <Button Text="Genres" Clicked="OnGenreButtonClicked"/>
 
     </VerticalStackLayout>
