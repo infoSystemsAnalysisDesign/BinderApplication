@@ -13,6 +13,28 @@ namespace BinderApplication.Pages
         private readonly Binder _binderPage;
         public Match()
         {
+            // Background Image
+            var backgroundImage = new Image
+            {
+                Source = "background1.jpeg",
+                Aspect = Aspect.Fill,
+                VerticalOptions = LayoutOptions.FillAndExpand,
+                HorizontalOptions = LayoutOptions.FillAndExpand
+            };
+
+            // Create a new Grid
+            var grid = new Grid
+            {
+                VerticalOptions = LayoutOptions.FillAndExpand,
+                HorizontalOptions = LayoutOptions.FillAndExpand,
+            };
+
+            // Add the background image to the Grid
+            grid.Children.Add(backgroundImage);
+
+            // Set the Grid as the page's content
+            Content = grid;
+
             InitializeComponent();
             viewModel = new MatchViewModel(databaseConnection);
             BindingContext = viewModel;
@@ -20,6 +42,7 @@ namespace BinderApplication.Pages
         }
         private void SetupUI()
         {
+          
             carouselView = new CarouselView
             {
                 ItemTemplate = new DataTemplate(() =>
@@ -112,9 +135,12 @@ namespace BinderApplication.Pages
                 })
             };
 
-            carouselView.SetBinding(CarouselView.ItemsSourceProperty, "BookItems");
+           
+           
 
-            Content = carouselView;
+            carouselView.SetBinding(CarouselView.ItemsSourceProperty, "BookItems");
+            ((Grid)Content).Children.Add(carouselView);
+            //Content = carouselView;
         }
 
 

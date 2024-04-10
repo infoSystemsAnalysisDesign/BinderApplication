@@ -49,6 +49,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\background1.jpeg" />
 	  <None Remove="Resources\Images\tab_binder.png" />
 	  <None Remove="Resources\Images\tab_match.png" />
 	  <None Remove="Resources\Images\tab_profile.png" />
