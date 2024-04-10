@@ -5,8 +5,6 @@ using BinderApplication.Database;
 
 namespace BinderApplication.Pages
 {
-
-
     public partial class Match : ContentPage
     {
         private readonly DatabaseConnection databaseConnection = DatabaseConnection.Instance;
@@ -128,7 +126,7 @@ namespace BinderApplication.Pages
                 var currentBook = (BookModel)carouselView.CurrentItem;
                 currentBook.Email = dbLogin.GetEmail();
                 await databaseConnection.SaveCarouselLiked(currentBook);
-                await DisplayAlert("Success", "Carousel data saved successfully.", "OK");
+                await DisplayAlert("HubbaHubba", "You liked me!", ";)");
             }
             catch (Exception ex)
             {
@@ -144,7 +142,7 @@ namespace BinderApplication.Pages
                 var currentBook = (BookModel)carouselView.CurrentItem;
                 currentBook.Email = dbLogin.GetEmail();
                 await databaseConnection.SaveCarouselHate(currentBook);
-                await DisplayAlert("Success", "Carousel data saved successfully.", "OK");
+                await DisplayAlert("Nooooo!", "You hate me?", "OK :(");
             }
             catch (Exception ex)
             {
