@@ -6,25 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-
-/*
- * PERSONAL NOTE:
- * Have DatabaseBook check if its new day or same day
- * 
- * If its a new day:
- * Clear table data
- * Store date
- * Store BSON
- * 
- * If is the same day
- * Ignore data
- * Pull Books
- * 
- * Both use this function from Books, build a seperate check date function and use that to determine
- * whether to pull new books or the same.
- * 
- * May need to refactor the DatabaseBook into a "SelectBooks" and "GrabBooks"
- */
+using MongoDB.Bson.Serialization;
 
 
 namespace BinderApplication.Database
@@ -43,6 +25,18 @@ namespace BinderApplication.Database
 
         public List<BookModel> RetrieveBooksFromDatabase(List<string> trueGenres)
         {
+            // Get the date from the database
+            DateTime? storedDate = GetDateFromDB();
+
+            // If the stored date is the same as today's date, load the books from the database
+            if (storedDate.HasValue && storedDate.Value.Date == DateTime.UtcNow.Date)
+            {
+                var currentBooks = LoadCurrentDaysBooksFromDB();
+                return currentBooks;
+            }
+
+            // Otherwise, retrieve new books
+
             //All genres (how we do it for now for testing)
             List<string> genres = trueGenres;
             Random random = new Random();
@@ -73,12 +67,88 @@ namespace BinderApplication.Database
 
             //Shuffle the list of all books and return the first 40
             allBooks = allBooks.OrderBy(b => random.Next()).Take(swipeLimit).ToList();
+
+            StoreCurrentDaysBooksIntoDB(allBooks);
+
             return allBooks;
         }
+
 
         public static List<BookModel> DeserializeBooks(string jsonString)
         {
             return JsonConvert.DeserializeObject<List<BookModel>>(jsonString);
         }
+
+        public void StoreCurrentDaysBooksIntoDB(List<BookModel> currentDaysBooks)
+        {
+            var dbLogin = DatabaseLogin.Instance;
+            string email = dbLogin.GetEmail();
+            var collection = database.GetCollection<BsonDocument>("User-CurrentDaysBooks");
+
+            //Clear the collection so it can change each day
+            collection.DeleteMany(_ => true);
+
+            //Insert the current date (without time) as the first document
+            var dateDocument = new BsonDocument { { "DateEntry", DateTime.UtcNow.Date } };
+            collection.InsertOne(dateDocument);
+
+            //Set the Email field for each book and insert them
+            foreach (var book in currentDaysBooks)
+            {
+                book.Email = email;
+                var bookDocument = book.ToBsonDocument();
+                collection.InsertOne(bookDocument);
+            }
+        }
+
+        public List<BookModel> LoadCurrentDaysBooksFromDB()
+        {
+            var dbLogin = DatabaseLogin.Instance;
+            string email = dbLogin.GetEmail();
+            var collection = database.GetCollection<BsonDocument>("User-CurrentDaysBooks");
+
+            // Retrieve the date document
+            var dateFilter = Builders<BsonDocument>.Filter.Exists("DateEntry");
+            var dateDocument = collection.Find(dateFilter).FirstOrDefault();
+            DateTime? date = null;
+            if (dateDocument != null)
+            {
+                date = dateDocument["DateEntry"].ToUniversalTime();
+            }
+
+            // Retrieve the book documents
+            var bookFilter = Builders<BsonDocument>.Filter.Not(dateFilter);
+            var bookDocuments = collection.Find(bookFilter).ToList();
+
+            // Deserialize the book documents into BookModel objects
+            var books = new List<BookModel>();
+            foreach (var bookDocument in bookDocuments)
+            {
+                var book = BsonSerializer.Deserialize<BookModel>(bookDocument);
+                books.Add(book);
+            }
+
+            return books;
+        }
+        
+        public DateTime? GetDateFromDB()
+        {
+            var dbLogin = DatabaseLogin.Instance;
+            string email = dbLogin.GetEmail();
+            var collection = database.GetCollection<BsonDocument>("User-CurrentDaysBooks");
+
+            // Retrieve the date document
+            var dateFilter = Builders<BsonDocument>.Filter.Exists("DateEntry");
+            var dateDocument = collection.Find(dateFilter).FirstOrDefault();
+            if (dateDocument != null)
+            {
+                return dateDocument["DateEntry"].ToUniversalTime();
+            }
+
+            return null;
+        }
+
+
+
     }
 }
