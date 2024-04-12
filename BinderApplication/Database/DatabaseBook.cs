@@ -83,7 +83,7 @@ namespace BinderApplication.Database
         {
             var dbLogin = DatabaseLogin.Instance;
             string email = dbLogin.GetEmail();
-            var collection = database.GetCollection<BsonDocument>("User-CurrentDaysBooks");
+            var collection = database.GetCollection<BsonDocument>(email + "-CurrentDaysBooks");
 
             //Clear the collection so it can change each day
             collection.DeleteMany(_ => true);
@@ -105,7 +105,7 @@ namespace BinderApplication.Database
         {
             var dbLogin = DatabaseLogin.Instance;
             string email = dbLogin.GetEmail();
-            var collection = database.GetCollection<BsonDocument>("User-CurrentDaysBooks");
+            var collection = database.GetCollection<BsonDocument>(email + "-CurrentDaysBooks");
 
             // Retrieve the date document
             var dateFilter = Builders<BsonDocument>.Filter.Exists("DateEntry");
@@ -135,7 +135,7 @@ namespace BinderApplication.Database
         {
             var dbLogin = DatabaseLogin.Instance;
             string email = dbLogin.GetEmail();
-            var collection = database.GetCollection<BsonDocument>("User-CurrentDaysBooks");
+            var collection = database.GetCollection<BsonDocument>(email + "-CurrentDaysBooks");
 
             // Retrieve the date document
             var dateFilter = Builders<BsonDocument>.Filter.Exists("DateEntry");
