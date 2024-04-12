@@ -9,7 +9,7 @@
             FontSize="Large"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-    <Button Text="User Info" Clicked="OnUserInfoButtonClicked"/>
+    <Button Text="Account" Clicked="OnUserInfoButtonClicked"/>
     <Button Text="Liked List" Clicked="OnLikedButtonClicked"/>
         <Button Text="Hate List" Clicked="OnHistoryButtonClicked"/>
         <Button Text="Genres" Clicked="OnGenreButtonClicked"/>

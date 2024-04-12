@@ -2,6 +2,7 @@ using BinderApplication.Database;
 using Microsoft.Maui.Graphics;
 using System.Diagnostics;
 using System.Linq.Expressions;
+using BinderApplication.States;
 
 namespace BinderApplication.Pages;
 
@@ -85,6 +86,21 @@ public partial class Genres : ContentPage
             stringBooleanMap["Suspense"],
             stringBooleanMap["Thriller"]
         );
+
+            var firstTimeUserState = FirstTimeUserState.Instance;
+            bool firstTimeUser = firstTimeUserState.GetFirstTimeUserState();
+
+            if (firstTimeUser == true)
+                DisplayAlert("How to use Binder:",
+                    "\n* SWIPE to see new books." +
+                    "\n* TAP a book cover to see its description." +
+                    "\n* You can LIKE or DISLIKE books to view them later in the Profile tab." +
+                    "\n* Create Reading Journals in the Journals tab." +
+                    "\n* You can logout of your account in the Account menu located in the Profile tab." +
+                    "\n* Most importantly, have fun!",
+                    "Let's get started!");
+
+            firstTimeUserState.DisableFirstTimeUserState();
 
             //This is so stupid but it is the only way I can get it working
             SignInPage signInPage = new SignInPage();

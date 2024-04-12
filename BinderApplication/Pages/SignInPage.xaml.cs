@@ -3,6 +3,7 @@ using MongoDB.Driver;
 using BinderApplication.Database;
 using BinderApplication.Services;
 using BinderApplication.Pages;
+using BinderApplication.States;
 
 namespace BinderApplication;
 
@@ -51,6 +52,10 @@ public partial class SignInPage : ContentPage
                 }
                 else
                 {
+                    //Enable FirstTimeUserState
+                    var firstTimeUserState = FirstTimeUserState.Instance;
+                    firstTimeUserState.EnableFirstTimeUserState();
+
                     //User found, but they don't have 4 genres
                     string message = "We only want you to see books that you will love, so please select at least 4 genres of literature you enjoy!";
 

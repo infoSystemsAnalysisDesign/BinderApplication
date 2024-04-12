@@ -190,7 +190,7 @@ namespace BinderApplication.Pages
                 var currentBook = (BookModel)carouselView.CurrentItem;
                 currentBook.Email = dbLogin.GetEmail();
                 await databaseConnection.SaveCarouselLiked(currentBook);
-                await DisplayAlert("HubbaHubba", "You liked me!", ";)");
+                await DisplayAlert("HubbaHubba", "You liked me!", "OK ;)");
             }
             catch (Exception ex)
             {
