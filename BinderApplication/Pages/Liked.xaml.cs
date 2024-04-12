@@ -6,11 +6,11 @@ namespace BinderApplication.Pages;
 
 public partial class Liked : ContentPage
 {
-	public Liked()
-	{
-		InitializeComponent();
-	}
- 
+    public Liked()
+    {
+        InitializeComponent();
+    }
+
     protected override void OnAppearing()
     {
         base.OnAppearing();
@@ -44,14 +44,23 @@ public partial class Liked : ContentPage
                     var authors = volumeInfo["Authors"].AsBsonArray.Select(b => b.AsString).ToList();
                     var publisher = volumeInfo["Publisher"].AsString;
                     var publishedDate = volumeInfo["PublishedDate"].AsString;
-                    var description = volumeInfo["Description"].AsString;
+                    var previewLink = volumeInfo["PreviewLink"].AsString;
 
                     // Create labels for each book and add them to the stack layout
                     var titleLabel = new Label { Text = $"Title: {title}" };
                     var authorsLabel = new Label { Text = $"Authors: {string.Join(", ", authors)}" };
                     var publisherLabel = new Label { Text = $"Publisher: {publisher}" };
                     var publishedDateLabel = new Label { Text = $"Published Date: {publishedDate}" };
-                    var descriptionLabel = new Label { Text = $"Description: {description}" };
+                    var previewLinkLabel = new Label { Text = $"Link to book on Google Books: {previewLink}" };
+
+                    // Add tap gesture recognizer to selfLinkLabel
+                    var tapGestureRecognizer = new TapGestureRecognizer();
+                    tapGestureRecognizer.Tapped += (s, e) => {
+                        // On tap, copy the selfLink to the clipboard
+                        Clipboard.SetTextAsync(previewLink);
+                        DisplayAlert("Copied to Clipboard", "Link to \"" + title + " \"copied to clipboard", "OK");
+                    };
+                    previewLinkLabel.GestureRecognizers.Add(tapGestureRecognizer);
 
                     // Add some padding between each entry
                     var padding = new Thickness(0, 5);
@@ -61,7 +70,7 @@ public partial class Liked : ContentPage
                     mainStackLayout.Children.Add(authorsLabel);
                     mainStackLayout.Children.Add(publisherLabel);
                     mainStackLayout.Children.Add(publishedDateLabel);
-                    mainStackLayout.Children.Add(descriptionLabel);
+                    mainStackLayout.Children.Add(previewLinkLabel);
 
                     // Add padding
                     mainStackLayout.Children.Add(new BoxView { HeightRequest = 10 });
@@ -87,5 +96,4 @@ public partial class Liked : ContentPage
         // Set the content of the page to the scrollView
         Content = scrollView;
     }
-
 }
