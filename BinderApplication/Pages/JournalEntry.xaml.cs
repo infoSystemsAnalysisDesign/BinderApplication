@@ -19,28 +19,40 @@ namespace BinderApplication.Pages
             _binderPage = binderPage;
         }
 
-        private void OnSaveClicked(object sender, EventArgs e)
+        private async void OnSaveClicked(object sender, EventArgs e)
         {
-            // Save the journal entry and send it back to the Binder page
-            JournalEntryModel journalEntry = new JournalEntryModel
-            {
-                Title = entryTitle.Text,
-                Date = DateTime.Now, // You can set a specific date if needed
-            };
-
-            // Add the text notes to the journal entry
-            journalEntry.TextNotes.Add(entryJournal.Text);
-
-            // Pass the journal entry back to the Binder page
-            _binderPage?.AddJournalEntry(journalEntry);
-
             var dbConnection = DatabaseConnection.Instance;
             DatabaseJournal dbJournal = new DatabaseJournal();
 
-            dbJournal.SaveJournalEntry(entryTitle.Text, entryJournal.Text);
+            // Check if a journal with the same title already exists
+            bool titleExists = dbJournal.CheckTitleExists(entryTitle.Text);
 
-            // Navigate back to the Binder page
-            Navigation.PopAsync();
+            if (titleExists)
+            {
+                // Display an alert if a journal with the same title exists
+                await DisplayAlert("Title Exists", "You already have a journal with that title, please rename it", "OK");
+            }
+            else
+            {
+                // Save the journal entry and send it back to the Binder page
+                JournalEntryModel journalEntry = new JournalEntryModel
+                {
+                    Title = entryTitle.Text,
+                    Date = DateTime.Now, // You can set a specific date if needed
+                };
+
+                // Add the text notes to the journal entry
+                journalEntry.TextNotes.Add(entryJournal.Text);
+
+                // Pass the journal entry back to the Binder page
+                _binderPage?.AddJournalEntry(journalEntry);
+
+                dbJournal.SaveJournalEntry(entryTitle.Text, entryJournal.Text);
+
+                // Navigate back to the Binder page
+                await Navigation.PopAsync();
+            }
         }
+
     }
 }
