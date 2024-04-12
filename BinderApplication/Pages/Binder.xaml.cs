@@ -82,8 +82,24 @@ namespace BinderApplication.Pages
                         var titleLabel = new Label { Text = $"Title: {title}" };
                         var dateLabel = new Label { Text = $"Date: {date}" };
                         var entryLabel = new Label { Text = $"Entry: {textNotes}" };
-                        var editButton = new Button { Text = "Edit Entry"};
-                        var deleteButton = new Button { Text = "Delete Entry" };
+
+                        var editButton = new Button 
+                        { 
+                            Text = "Edit Entry", 
+                        };
+                        editButton.Clicked += async (sender, args) =>
+                        {
+                            await Navigation.PushAsync(new JournalEntry(this));
+                        };
+
+                        var deleteButton = new Button 
+                        { 
+                            Text = "Delete Entry" 
+                        };
+                        deleteButton.Clicked += async (sender, args) =>
+                        {
+                            //LOGIC TO DELETE JOURNAL BUTTON
+                        };
 
                         // Add some padding between each entry
                         var padding = new Thickness(0, 5);
