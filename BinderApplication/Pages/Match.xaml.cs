@@ -2,7 +2,6 @@ using Microsoft.Maui.Controls;
 using System;
 using BinderApplication.Database;
 
-
 namespace BinderApplication.Pages
 {
     public partial class Match : ContentPage
@@ -165,6 +164,12 @@ namespace BinderApplication.Pages
                     {
                         BackgroundColor = Color.FromHex("#90EE90"),
                         Text = "Like",
+                        TextColor= Color.FromHex("#000000"),
+                        BorderColor = Color.FromHex("#000000"),
+                        BorderWidth = 1, // Add this line
+                        Margin = new Thickness(0, 0, 10, 0), // Add margin to the right to create space between buttons
+                        WidthRequest = 100, // Set width request to make the buttons bigger
+                        HeightRequest = 50, // Set height request to make the buttons bigger
                         HorizontalOptions = LayoutOptions.End,
                         VerticalOptions = LayoutOptions.End
                     };
@@ -174,6 +179,12 @@ namespace BinderApplication.Pages
                     {
                         BackgroundColor = Color.FromHex("#FF474C"),
                         Text = "Hate",
+                        TextColor = Color.FromHex("#000000"),
+                        BorderColor = Color.FromHex("#000000"),
+                        BorderWidth = 1, // Add this line
+                        Margin = new Thickness(0, 0, 10, 0), // Add margin to the right to create space between buttons
+                        WidthRequest = 100, // Set width request to make the buttons bigger
+                        HeightRequest = 50, // Set height request to make the buttons bigger
                         HorizontalOptions = LayoutOptions.Start,
                         VerticalOptions = LayoutOptions.End
                     };
