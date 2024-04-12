@@ -14,13 +14,37 @@ namespace BinderApplication.Pages
         public Match()
         {
             // Background Image
+
             var backgroundImage = new Image
             {
-                Source = "background1.jpeg",
+                Source = GetBackgroundImageForDayOfWeek(DateTime.Now.DayOfWeek),
                 Aspect = Aspect.Fill,
                 VerticalOptions = LayoutOptions.FillAndExpand,
                 HorizontalOptions = LayoutOptions.FillAndExpand
             };
+
+            string GetBackgroundImageForDayOfWeek(DayOfWeek dayOfWeek)
+            {
+                switch (dayOfWeek)
+                {
+                    case DayOfWeek.Monday:
+                        return "background1.jpeg";
+                    case DayOfWeek.Tuesday:
+                        return "background2.jpeg";
+                    case DayOfWeek.Wednesday:
+                        return "background1.jpeg";
+                    case DayOfWeek.Thursday:
+                        return "background2.jpg";
+                    case DayOfWeek.Friday:
+                        return "background1.jpeg";
+                    case DayOfWeek.Saturday:
+                        return "background2.jpeg";
+                    case DayOfWeek.Sunday:
+                        return "background1.jpeg";
+                    default:
+                        return null; // No specific background for other days
+                }
+            }
 
             // Create a new Grid
             var grid = new Grid
