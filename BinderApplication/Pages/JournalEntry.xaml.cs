@@ -32,6 +32,11 @@ namespace BinderApplication.Pages
                 // Display an alert if a journal with the same title exists
                 await DisplayAlert("Title Exists", "You already have a journal with that title, please rename it", "OK");
             }
+            else if (entryTitle.Text == null || entryJournal.Text == null
+                || entryTitle.Text == "" || entryJournal.Text == "")
+            {
+                await DisplayAlert("Oops!", "The journal must have a title and entry.", "OK");
+            }
             else
             {
                 // Save the journal entry and send it back to the Binder page
