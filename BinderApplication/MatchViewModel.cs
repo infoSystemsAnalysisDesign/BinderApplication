@@ -51,6 +51,10 @@ namespace BinderApplication
                             {
                                 volInfo.ImageLinks.SmallThumbnail = "https://" + volInfo.ImageLinks.SmallThumbnail;
                             }
+                            if (volInfo.ImageLinks.SmallThumbnail.Equals("https://N/A"))
+                            {
+                                volInfo.ImageLinks.SmallThumbnail = "https://cdn.vectorstock.com/i/1000v/88/26/no-image-available-icon-flat-vector-25898826.jpg";
+                            }
                         }
 
                         // Manipulate Thumbnail link
@@ -63,6 +67,10 @@ namespace BinderApplication
                             else if (!volInfo.ImageLinks.Thumbnail.StartsWith("https://"))
                             {
                                 volInfo.ImageLinks.Thumbnail = "https://" + volInfo.ImageLinks.Thumbnail;
+                            }
+                            if (volInfo.ImageLinks.Thumbnail.Equals("https://N/A"))
+                            {
+                                volInfo.ImageLinks.Thumbnail = "https://cdn.vectorstock.com/i/1000v/88/26/no-image-available-icon-flat-vector-25898826.jpg";
                             }
                         }
                     }
