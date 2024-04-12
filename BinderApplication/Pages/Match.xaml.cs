@@ -66,7 +66,6 @@ namespace BinderApplication.Pages
         }
         private void SetupUI()
         {
-          
             carouselView = new CarouselView
             {
                 ItemTemplate = new DataTemplate(() =>
@@ -79,6 +78,7 @@ namespace BinderApplication.Pages
                     // Create Front Side
                     var frontLayout = new StackLayout
                     {
+                        BackgroundColor = Color.FromHex("#ffffff"),
                         HorizontalOptions = LayoutOptions.Center,
                         VerticalOptions = LayoutOptions.Center
                     };
@@ -87,34 +87,59 @@ namespace BinderApplication.Pages
                     {
                         WidthRequest = 200,
                         HeightRequest = 300,
-                        Aspect = Aspect.AspectFit // or Aspect.AspectFill depending on your preference
+                        Aspect = Aspect.AspectFit
                     };
                     frontImage.SetBinding(Image.SourceProperty, "VolumeInfo.ImageLinks.Thumbnail");
 
+                    // Add tap gesture recognizer to the image
+                    var tapGestureRecognizer = new TapGestureRecognizer();
+                    tapGestureRecognizer.Tapped += async (s, e) =>
+                    {
+                        // Get the current book
+                        var currentBook = (BookModel)carouselView.CurrentItem;
+                        // Show the full description in an alert
+                        await DisplayAlert(currentBook.VolumeInfo.Title, currentBook.VolumeInfo.Description, "OK");
+                    };
+                    frontImage.GestureRecognizers.Add(tapGestureRecognizer);
+
+                    var frontTitle = new Label
+                    {
+                        HorizontalOptions = LayoutOptions.Center,
+                        FontSize = 20,
+                        FontAttributes = FontAttributes.Bold
+                    };
+                    frontTitle.SetBinding(Label.TextProperty, "VolumeInfo.Title");
+
+                    var frontAuthors = new Label
+                    {
+                        HorizontalOptions = LayoutOptions.Center,
+                        FontSize = 16,
+                    };
+                    frontAuthors.SetBinding(Label.TextProperty, "VolumeInfo.Authors[0]"); // Assuming authors is a list
+
                     frontLayout.Children.Add(frontImage);
+                    frontLayout.Children.Add(frontTitle);
+                    frontLayout.Children.Add(frontAuthors);
 
                     // Create Back Side
                     var backLayout = new StackLayout
                     {
+                        BackgroundColor = Color.FromHex("#ffffff"),
                         HorizontalOptions = LayoutOptions.Center,
                         VerticalOptions = LayoutOptions.Center,
                         IsVisible = false // Initially hidden
                     };
 
-                    var backLabel = new Label
+                    var backDescription = new Label
                     {
-                        
-                        BackgroundColor = Color.FromHex("#ffffff"),
                         HorizontalOptions = LayoutOptions.Center,
-                        VerticalOptions = LayoutOptions.Center,
-                        HorizontalTextAlignment = TextAlignment.Center,
-                        FontSize = 20,
-                        WidthRequest = 200,
-                        HeightRequest = 300
+                        FontSize = 16,
+                        LineBreakMode = LineBreakMode.WordWrap,
+                        VerticalOptions = LayoutOptions.StartAndExpand // Allow the description to occupy available space
                     };
-                    backLabel.SetBinding(Label.TextProperty, "VolumeInfo.Title");
+                    backDescription.SetBinding(Label.TextProperty, "VolumeInfo.Description");
 
-                    backLayout.Children.Add(backLabel);
+                    backLayout.Children.Add(backDescription);
 
                     cardLayout.Children.Add(frontLayout);
                     cardLayout.Children.Add(backLayout);
@@ -148,27 +173,12 @@ namespace BinderApplication.Pages
 
                     cardLayout.Children.Add(buttonLayout);
 
-                    var tapGestureRecognizer = new TapGestureRecognizer();
-                    tapGestureRecognizer.Tapped += (s, e) =>
-                    {
-                        // Toggle between front and back sides on tap
-                        frontLayout.IsVisible = !frontLayout.IsVisible;
-                        backLayout.IsVisible = !backLayout.IsVisible;
-                    };
-
-
-                    cardLayout.GestureRecognizers.Add(tapGestureRecognizer);
-
                     return cardLayout;
                 })
             };
 
-           
-           
-
             carouselView.SetBinding(CarouselView.ItemsSourceProperty, "BookItems");
             ((Grid)Content).Children.Add(carouselView);
-            //Content = carouselView;
         }
 
 
@@ -205,3 +215,4 @@ namespace BinderApplication.Pages
         }
     }
 }
+
