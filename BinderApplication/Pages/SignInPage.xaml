@@ -45,7 +45,15 @@
 
                 <Button CornerRadius="0" HeightRequest="60"  Text="SIGN IN" FontSize="20" FontAttributes="Bold" Clicked="OnSignInButtonClicked"/>
 <!--Borderless Entry-->
-                <Label FontAttributes="Bold" Text="Forgot Password?" TextColor="Gray" HorizontalTextAlignment="Center" />
+                <!--<HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                    <Button FontAttributes="Bold" Text="Forgot Password?" TextColor="Gray" Clicked="OnForgetPasswordButton_Clicked" HorizontalTextAlignment="Center"/>
+                </HorizontalStackLayout>-->
+                <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                    <Button FontAttributes="Bold" Text="Forgot Password?" TextColor="Gray" Clicked="OnForgetPasswordButton_Clicked"/>
+                </HorizontalStackLayout>
+
+
+
                 <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
                     <Label FontAttributes="Bold" TextColor="Gray" Text="Don't Have An Account?" VerticalTextAlignment="Center"/>
                     <Label Text="SIGN UP" FontSize="18" 

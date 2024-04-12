@@ -73,6 +73,11 @@ public partial class SignInPage : ContentPage
         }
     }
 
+    private async void OnForgetPasswordButton_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new ResetPassword());
+    }
+
 
     private async void TapGestureRecognizer_Tapped_For_SignUP(object sender, TappedEventArgs e)
     {
