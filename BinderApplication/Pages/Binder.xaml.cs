@@ -76,11 +76,14 @@ namespace BinderApplication.Pages
                         var title = userJournal["Title"].AsString;
                         var date = userJournal["Date"].ToUniversalTime().ToString("yyyy-MM-dd HH:mm");
                         var textNotes = userJournal["Entry"].AsString;
+                        
 
                         // Create labels for each journal entry and add them to the stack layout
                         var titleLabel = new Label { Text = $"Title: {title}" };
                         var dateLabel = new Label { Text = $"Date: {date}" };
                         var entryLabel = new Label { Text = $"Entry: {textNotes}" };
+                        var editButton = new Button { Text = "Edit Entry"};
+                        var deleteButton = new Button { Text = "Delete Entry" };
 
                         // Add some padding between each entry
                         var padding = new Thickness(0, 5);
@@ -89,6 +92,8 @@ namespace BinderApplication.Pages
                         mainStackLayout.Children.Add(titleLabel);
                         mainStackLayout.Children.Add(dateLabel);
                         mainStackLayout.Children.Add(entryLabel);
+                        mainStackLayout.Children.Add(editButton);
+                        mainStackLayout.Children.Add(deleteButton);
 
                         // Add padding
                         mainStackLayout.Children.Add(new BoxView { HeightRequest = 10 });
