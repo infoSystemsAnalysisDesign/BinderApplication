@@ -28,19 +28,19 @@ namespace BinderApplication.Pages
                 switch (dayOfWeek)
                 {
                     case DayOfWeek.Monday:
-                        return "background1.jpeg";
+                        return "weekday.jpg";
                     case DayOfWeek.Tuesday:
-                        return "background2.jpeg";
+                        return "weekday.jpg";
                     case DayOfWeek.Wednesday:
-                        return "background1.jpeg";
+                        return "weekday.jpg";
                     case DayOfWeek.Thursday:
-                        return "background2.jpg";
+                        return "weekday.jpg";
                     case DayOfWeek.Friday:
-                        return "background1.jpeg";
+                        return "weekday.jpg";
                     case DayOfWeek.Saturday:
-                        return "background2.jpeg";
+                        return "weekend.jpg";
                     case DayOfWeek.Sunday:
-                        return "background1.jpeg";
+                        return "weekend.jpg";
                     default:
                         return null; // No specific background for other days
                 }
