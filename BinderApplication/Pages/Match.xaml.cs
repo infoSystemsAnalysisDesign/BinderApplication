@@ -103,10 +103,14 @@ namespace BinderApplication.Pages
 
                     var backLabel = new Label
                     {
+                        
+                        BackgroundColor = Color.FromHex("#ffffff"),
                         HorizontalOptions = LayoutOptions.Center,
                         VerticalOptions = LayoutOptions.Center,
                         HorizontalTextAlignment = TextAlignment.Center,
-                        FontSize = 20
+                        FontSize = 20,
+                        WidthRequest = 200,
+                        HeightRequest = 300
                     };
                     backLabel.SetBinding(Label.TextProperty, "VolumeInfo.Title");
 
