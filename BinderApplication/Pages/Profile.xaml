@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BinderApplication.Pages.Profile"
-             Background="Salmon">
+             Background="LightSeaGreen">
 
     <VerticalStackLayout Spacing="20">
 
@@ -10,7 +10,7 @@
             Text="Profile"
             FontSize="50"
             FontAttributes="Bold"
-            TextColor="White"
+            TextColor="Black"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
 
