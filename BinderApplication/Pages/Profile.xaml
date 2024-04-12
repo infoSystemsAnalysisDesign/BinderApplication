@@ -2,27 +2,34 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BinderApplication.Pages.Profile"
-             BackgroundImageSource="background2.jpg"
-             Title="Profile">
-    <VerticalStackLayout>
+             Background="Salmon">
+
+    <VerticalStackLayout Spacing="20">
+
         <Label 
             Text="Profile"
             FontSize="50"
             FontAttributes="Bold"
-            TextColor="BlueViolet"
+            TextColor="White"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-        
-    <Button Text="Account" Clicked="OnUserInfoButtonClicked"
-            FontSize="30"/>
-    <Button Text="Liked List" Clicked="OnLikedButtonClicked"
-            FontSize="30"/>
+
+        <Button Text="Account" Clicked="OnUserInfoButtonClicked"
+            FontSize="25" Padding="20,20" HorizontalOptions="Center"
+            WidthRequest="200"/>
+
+        <Button Text="Liked List" Clicked="OnLikedButtonClicked"
+            FontSize="25" Padding="20,20" HorizontalOptions="Center"
+                WidthRequest="200"/>
+
         <Button Text="Hate List" Clicked="OnHistoryButtonClicked"
-                FontSize="30"/>
+            FontSize="25" Padding="20,20" HorizontalOptions="Center"
+                WidthRequest="200"/>
+
         <Button Text="Genres" Clicked="OnGenreButtonClicked"
-                FontSize="30"/>
+            FontSize="25" Padding="20,20" HorizontalOptions="Center"
+                WidthRequest="200"/>
 
     </VerticalStackLayout>
-	
 
 </ContentPage>
