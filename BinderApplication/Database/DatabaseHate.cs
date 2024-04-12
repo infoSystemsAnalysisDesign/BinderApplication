@@ -12,6 +12,7 @@ namespace BinderApplication.Database
     public class DatabaseHate
     {
         private readonly IMongoDatabase database;
+        DatabaseLogin dbLogin = DatabaseLogin.Instance;
 
         public DatabaseHate()
         {
@@ -19,17 +20,20 @@ namespace BinderApplication.Database
         }
 
 
-        public List<BookModel> RetrieveJournalEntries()
+        public List<BookModel> RetrieveHatedBooks()
         {
             var collection = database.GetCollection<BsonDocument>("Hate");
-            var filter = Builders<BsonDocument>.Filter.Empty;
+
+            string email = dbLogin.GetEmail();
+            var filter = Builders<BsonDocument>.Filter.Eq("Email", email);
+
             var journals = collection.Find(filter).ToList();
             var bsonString = journals.ToJson();
             var cleanedBsonString = BsonStringCleaner.CleanBsonString(bsonString);
-            return DeserializeJournals(cleanedBsonString);
+            return DeserializeHatedBooks(cleanedBsonString);
         }
 
-        private static List<BookModel> DeserializeJournals(string jsonString)
+        private static List<BookModel> DeserializeHatedBooks(string jsonString)
         {
             return JsonConvert.DeserializeObject<List<BookModel>>(jsonString);
         }

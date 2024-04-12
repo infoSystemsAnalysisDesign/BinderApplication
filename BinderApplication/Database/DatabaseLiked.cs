@@ -12,6 +12,7 @@ namespace BinderApplication.Database
     public class DatabaseLiked
     {
             private readonly IMongoDatabase database;
+            DatabaseLogin dbLogin = DatabaseLogin.Instance;
 
             public DatabaseLiked()
             {
@@ -19,17 +20,20 @@ namespace BinderApplication.Database
             }
 
             
-            public List<BookModel> RetrieveJournalEntries()
+            public List<BookModel> RetrieveLikedBooks()
             {
                 var collection = database.GetCollection<BsonDocument>("Liked");
-                var filter = Builders<BsonDocument>.Filter.Empty;
+
+                string email = dbLogin.GetEmail();
+                var filter = Builders<BsonDocument>.Filter.Eq("Email", email);
+
                 var journals = collection.Find(filter).ToList();
                 var bsonString = journals.ToJson();
                 var cleanedBsonString = BsonStringCleaner.CleanBsonString(bsonString);
-                return DeserializeJournals(cleanedBsonString);
+                return DeserializeLikedBooks(cleanedBsonString);
             }
 
-            private static List<BookModel> DeserializeJournals(string jsonString)
+            private static List<BookModel> DeserializeLikedBooks(string jsonString)
             {
                 return JsonConvert.DeserializeObject<List<BookModel>>(jsonString);
             }
