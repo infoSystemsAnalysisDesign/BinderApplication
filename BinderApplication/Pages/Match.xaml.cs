@@ -72,24 +72,27 @@ namespace BinderApplication.Pages
                 {
                     var cardLayout = new StackLayout
                     {
-                        Padding = new Thickness(10)
+                        Padding = new Thickness(10),
+                        Margin = new Thickness(0, 10, 0, 10) // Add margin to create space between cards
+
                     };
 
                     // Create Front Side
                     var frontLayout = new StackLayout
                     {
                         BackgroundColor = Color.FromHex("#ffffff"),
+                        Padding = new Thickness(10),
                         HorizontalOptions = LayoutOptions.Center,
                         VerticalOptions = LayoutOptions.Start, // Changed to Start
-                        HeightRequest = 400
-                        
+                        HeightRequest = 450
                     };
 
                     var frontImage = new Image
                     {
                         WidthRequest = 200,
                         HeightRequest = 300,
-                        Aspect = Aspect.AspectFit
+                        Aspect = Aspect.AspectFit,
+                        VerticalOptions = LayoutOptions.Start // Align the image to the top
                     };
                     frontImage.SetBinding(Image.SourceProperty, "VolumeInfo.ImageLinks.Thumbnail");
 
@@ -129,6 +132,7 @@ namespace BinderApplication.Pages
                     var backLayout = new StackLayout
                     {
                         BackgroundColor = Color.FromHex("#ffffff"),
+                        Padding = new Thickness(10),
                         HorizontalOptions = LayoutOptions.Center,
                         VerticalOptions = LayoutOptions.Center,
                         IsVisible = false // Initially hidden
@@ -153,7 +157,8 @@ namespace BinderApplication.Pages
                     {
                         Orientation = StackOrientation.Horizontal,
                         HorizontalOptions = LayoutOptions.Center,
-                        VerticalOptions = LayoutOptions.End
+                        VerticalOptions = LayoutOptions.End,
+                        Padding = new Thickness(10, 5, 10, 10) // Add padding to the button layout
                     };
 
                     var likeButton = new Button
@@ -186,6 +191,7 @@ namespace BinderApplication.Pages
             carouselView.SetBinding(CarouselView.ItemsSourceProperty, "BookItems");
             ((Grid)Content).Children.Add(carouselView);
         }
+
 
 
         private async void LikedButton(object sender, EventArgs e)
