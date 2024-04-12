@@ -80,7 +80,9 @@ namespace BinderApplication.Pages
                     {
                         BackgroundColor = Color.FromHex("#ffffff"),
                         HorizontalOptions = LayoutOptions.Center,
-                        VerticalOptions = LayoutOptions.Center
+                        VerticalOptions = LayoutOptions.Start, // Changed to Start
+                        HeightRequest = 400
+                        
                     };
 
                     var frontImage = new Image
@@ -104,6 +106,7 @@ namespace BinderApplication.Pages
 
                     var frontTitle = new Label
                     {
+                        WidthRequest = 300,
                         HorizontalOptions = LayoutOptions.Center,
                         FontSize = 20,
                         FontAttributes = FontAttributes.Bold
@@ -112,6 +115,7 @@ namespace BinderApplication.Pages
 
                     var frontAuthors = new Label
                     {
+                        WidthRequest = 300,
                         HorizontalOptions = LayoutOptions.Center,
                         FontSize = 16,
                     };
@@ -154,6 +158,7 @@ namespace BinderApplication.Pages
 
                     var likeButton = new Button
                     {
+                        BackgroundColor = Color.FromHex("#90EE90"),
                         Text = "Like",
                         HorizontalOptions = LayoutOptions.End,
                         VerticalOptions = LayoutOptions.End
@@ -162,6 +167,7 @@ namespace BinderApplication.Pages
 
                     var hateButton = new Button
                     {
+                        BackgroundColor = Color.FromHex("#FF474C"),
                         Text = "Hate",
                         HorizontalOptions = LayoutOptions.Start,
                         VerticalOptions = LayoutOptions.End
