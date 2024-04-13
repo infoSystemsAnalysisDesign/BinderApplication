@@ -15,6 +15,7 @@ namespace BinderApplication.Pages
     public partial class Binder : ContentPage
     {
         List<JournalEntryModel> journalEntries;
+        int journalId = 0;
 
         public Binder()
         {
@@ -76,7 +77,8 @@ namespace BinderApplication.Pages
                         var title = userJournal["Title"].AsString;
                         var date = userJournal["Date"].ToUniversalTime().ToString("yyyy-MM-dd HH:mm");
                         var textNotes = userJournal["Entry"].AsString;
-                        
+
+                        string titleId = title;
 
                         // Create labels for each journal entry and add them to the stack layout
                         var titleLabel = new Label { Text = $"Title: {title}" };
@@ -89,8 +91,10 @@ namespace BinderApplication.Pages
                         };
                         editButton.Clicked += async (sender, args) =>
                         {
-                            await Navigation.PushAsync(new JournalEntry(this));
+                            await DisplayAlert(titleId, titleId, titleId);
+                            await Navigation.PushAsync(new JournalEntry(this, title, textNotes));
                         };
+
 
                         var deleteButton = new Button 
                         { 

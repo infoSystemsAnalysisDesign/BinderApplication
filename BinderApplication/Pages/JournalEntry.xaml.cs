@@ -11,12 +11,25 @@ namespace BinderApplication.Pages
     public partial class JournalEntry : ContentPage
     {
         private readonly Binder _binderPage;
+        string editTitle;
+        string editEntry;
+        bool editMode = false;
 
         // Constructor to receive the Binder instance
         public JournalEntry(Binder binderPage)
         {
             InitializeComponent();
             _binderPage = binderPage;
+        }
+
+        public JournalEntry(Binder binderPage, string title, string entry)
+        {
+            InitializeComponent();
+            _binderPage = binderPage;
+
+            editTitle = title;
+            editEntry = entry;
+            editMode = true;
         }
 
         private async void OnSaveClicked(object sender, EventArgs e)
