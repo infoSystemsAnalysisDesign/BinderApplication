@@ -13,13 +13,17 @@ namespace BinderApplication.Pages
         private readonly Binder _binderPage;
         string editTitle;
         string editEntry;
-        bool editMode = false;
+        bool editMode;
 
         // Constructor to receive the Binder instance
         public JournalEntry(Binder binderPage)
         {
             InitializeComponent();
             _binderPage = binderPage;
+
+            editTitle = null;
+            editEntry = null;
+            editMode = false;
         }
 
         public JournalEntry(Binder binderPage, string title, string entry)
@@ -30,6 +34,9 @@ namespace BinderApplication.Pages
             editTitle = title;
             editEntry = entry;
             editMode = true;
+
+            entryTitle.Text = editTitle;
+            entryJournal.Text = editEntry;
         }
 
         private async void OnSaveClicked(object sender, EventArgs e)
