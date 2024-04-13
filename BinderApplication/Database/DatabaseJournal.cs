@@ -63,6 +63,27 @@ namespace BinderApplication.Database
             return existingJournal != null;
         }
 
+        public void DeleteJournalEntry(string title)
+        {
+            var collection = database.GetCollection<BsonDocument>("Journal");
+
+            var dbLogin = DatabaseLogin.Instance;
+            string email = dbLogin.GetEmail();
+
+            //Check if a journal with the same title already exists for the user
+            var filter = Builders<BsonDocument>.Filter.And(
+                Builders<BsonDocument>.Filter.Eq("Email", email),
+                Builders<BsonDocument>.Filter.Eq("Title", title)
+            );
+            var existingJournal = collection.Find(filter).FirstOrDefault();
+
+            //If the journal exists, delete it
+            if (existingJournal != null)
+            {
+                collection.DeleteOne(filter);
+            }
+        }
+
 
         private static List<JournalEntryModel> DeserializeJournals(string jsonString)
         {

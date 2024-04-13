@@ -72,6 +72,10 @@ namespace BinderApplication.Pages
                 // Pass the journal entry back to the Binder page
                 _binderPage?.AddJournalEntry(journalEntry);
 
+                //Will delete original un-edited journal if editMode is true
+                if (editMode)
+                    dbJournal.DeleteJournalEntry(editTitle);
+
                 dbJournal.SaveJournalEntry(entryTitle.Text, entryJournal.Text);
 
                 // Navigate back to the Binder page

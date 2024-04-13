@@ -91,7 +91,6 @@ namespace BinderApplication.Pages
                         };
                         editButton.Clicked += async (sender, args) =>
                         {
-                            await DisplayAlert(titleId, titleId, titleId);
                             await Navigation.PushAsync(new JournalEntry(this, title, textNotes));
                         };
 
@@ -102,7 +101,17 @@ namespace BinderApplication.Pages
                         };
                         deleteButton.Clicked += async (sender, args) =>
                         {
-                            //LOGIC TO DELETE JOURNAL BUTTON
+                            bool result = await DisplayAlert("Confirmation", "Are you sure you want to delete this journal entry?", "OK", "Cancel");
+                            if (result)
+                            {
+                                DatabaseJournal dbJournal = new DatabaseJournal();
+                                dbJournal.DeleteJournalEntry(title);
+                                UpdateDisplay();
+                            }
+                            else
+                            {
+                                await DisplayAlert("Deletion Cancelled", "The journal deletion was cancelled.", "OK");
+                            }
                         };
 
                         // Add some padding between each entry
