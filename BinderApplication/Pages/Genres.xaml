@@ -19,7 +19,7 @@
 
             <StackLayout Orientation="Horizontal" Padding="10,10" Spacing="20">
                 <Label Text="Drama"
-                       WidthRequest="100"
+                       WidthRequest="75"
                         FontSize="20"
                         VerticalOptions="CenterAndExpand"
                         HorizontalTextAlignment="Start"/>
@@ -27,9 +27,9 @@
                         ThumbColor="DarkSlateGrey" 
                         OnColor="DarkSlateGrey"
                         VerticalOptions="CenterAndExpand"/>
-                <BoxView WidthRequest="70" Color="LightGrey"/>
+                <BoxView WidthRequest="50" Color="LightGrey"/>
                 <Label Text="Essay" VerticalOptions="Center"                        
-                       WidthRequest="100"
+                       WidthRequest="75"
                    FontSize="20" HorizontalTextAlignment="Start"/>
                 <Switch x:Name="Essay" AutomationId="Essay" 
                     ThumbColor="DarkSlateGrey"
@@ -39,14 +39,14 @@
 
             <StackLayout Orientation="Horizontal" Padding="10,10" Spacing="20">
                 <Label Text="Fiction" VerticalOptions="Center"
-                       WidthRequest="100"
+                       WidthRequest="75"
                    FontSize="20" HorizontalTextAlignment="Start"/>
                 <Switch x:Name="Fiction" AutomationId="Fiction" 
                     ThumbColor="DarkSlateGrey"
                     OnColor="DarkSlateGrey"/>
-                <BoxView WidthRequest="60" Color="LightGrey"/>
+                <BoxView WidthRequest="50" Color="LightGrey"/>
                 <Label Text="History" VerticalOptions="Center"
-                       WidthRequest="100"
+                       WidthRequest="75"
                    FontSize="20" HorizontalTextAlignment="Start"/>
                 <Switch x:Name="History" AutomationId="History" 
                     ThumbColor="DarkSlateGrey"
@@ -55,12 +55,14 @@
 
             <StackLayout Orientation="Horizontal" Padding="10,10" Spacing="20">
                 <Label Text="Horror" VerticalOptions="Center" 
+                       WidthRequest="75"
                    FontSize="20" HorizontalTextAlignment="Start"/>
                 <Switch x:Name="Horror" AutomationId="Horror" 
                     ThumbColor="DarkSlateGrey"
                     OnColor="DarkSlateGrey"/>
                 <BoxView WidthRequest="50" Color="LightGrey"/>
                 <Label Text="NonFiction" VerticalOptions="Center" 
+                       WidthRequest="75"
                    FontSize="20" HorizontalTextAlignment="Start"/>
                 <Switch x:Name="NonFiction" AutomationId="NonFiction" 
                     ThumbColor="DarkSlateGrey"
@@ -71,13 +73,15 @@
             <StackLayout Orientation="Horizontal" Padding="10,10" Spacing="20">
 
                 <Label Text="Novel" VerticalOptions="Center" 
+                       WidthRequest="75"
                    FontSize="20" HorizontalTextAlignment="Start"/>
                 <Switch x:Name="Novel" AutomationId="Novel" 
                     ThumbColor="DarkSlateGrey"
                     OnColor="DarkSlateGrey"/>
-                <BoxView WidthRequest="80" Color="LightGrey"/>
+                <BoxView WidthRequest="50" Color="LightGrey"/>
 
                 <Label Text="Philosophy" VerticalOptions="Center" 
+                       WidthRequest="75"
                    FontSize="20" HorizontalTextAlignment="Start"/>
                 <Switch x:Name="Philosophy" AutomationId="Philosophy" 
                     ThumbColor="DarkSlateGrey"
@@ -85,15 +89,15 @@
             </StackLayout>
 
             <StackLayout Orientation="Horizontal" Padding="10,10" Spacing="20">
-
                 <Label Text="Poetry" VerticalOptions="Center" 
+                       WidthRequest="75"
                    FontSize="20" HorizontalTextAlignment="Start"/>
                 <Switch x:Name="Poetry" AutomationId="Poetry" 
                     ThumbColor="DarkSlateGrey"
                     OnColor="DarkSlateGrey"/>
-                <BoxView WidthRequest="70" Color="LightGrey"/>
-
+                <BoxView WidthRequest="50" Color="LightGrey"/>
                 <Label Text="Politics" VerticalOptions="Center" 
+                       WidthRequest="75"
                    FontSize="20" HorizontalTextAlignment="Start"/>
                 <Switch x:Name="Politics" AutomationId="Politics" 
                     ThumbColor="DarkSlateGrey" 
@@ -103,13 +107,15 @@
             <StackLayout Orientation="Horizontal" Padding="10,10" Spacing="15">
 
                 <Label Text="Psychology" VerticalOptions="Center" 
+                       WidthRequest="75"
                    FontSize="20" HorizontalTextAlignment="Start"/>
                 <Switch x:Name="Psychology" AutomationId="Psychology" 
                     ThumbColor="DarkSlateGrey"
                     OnColor="DarkSlateGrey"/>
-                <BoxView WidthRequest="40" Color="LightGrey"/>
+                <BoxView WidthRequest="50" Color="LightGrey"/>
 
                 <Label Text="Romance" VerticalOptions="Center" 
+                       WidthRequest="75"
                    FontSize="20" HorizontalTextAlignment="Start"/>
                 <Switch x:Name="Romance" AutomationId="Romance" 
                     ThumbColor="DarkSlateGrey"
@@ -119,13 +125,15 @@
             <StackLayout Orientation="Horizontal" Padding="10,10" Spacing="20">
 
                 <Label Text="Science" VerticalOptions="Center" 
+                       WidthRequest="75"
                    FontSize="20" HorizontalTextAlignment="Start"/>
                 <Switch x:Name="Science" AutomationId="Science" 
                     ThumbColor="DarkSlateGrey"
                     OnColor="DarkSlateGrey"/>
-                <BoxView WidthRequest="60" Color="LightGrey"/>
+                <BoxView WidthRequest="50" Color="LightGrey"/>
 
                 <Label Text="Spirituality" VerticalOptions="Center" 
+                       WidthRequest="75"
                    FontSize="20" HorizontalTextAlignment="Start"/>
                 <Switch x:Name="Spirituality" AutomationId="Spirituality" 
                     ThumbColor="DarkSlateGrey"
@@ -136,12 +144,14 @@
             <StackLayout Orientation="Horizontal" Padding="10,10" Spacing="20">
 
                 <Label Text="Suspense" VerticalOptions="Center" 
+                       WidthRequest="75"
                    FontSize="20" HorizontalTextAlignment="Start"/>
                 <Switch x:Name="Suspense" AutomationId="Suspense" 
                     ThumbColor="DarkSlateGrey"
                     OnColor="DarkSlateGrey"/>
-                <BoxView WidthRequest="70" Color="LightGrey"/>
+                <BoxView WidthRequest="50" Color="LightGrey"/>
                 <Label Text="Thriller" VerticalOptions="Center" 
+                       WidthRequest="75"
                    FontSize="20" HorizontalTextAlignment="Start"/>
                 <Switch x:Name="Thriller" AutomationId="Thriller" 
                     ThumbColor="DarkSlateGrey"
