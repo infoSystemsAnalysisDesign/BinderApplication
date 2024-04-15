@@ -6,8 +6,6 @@
     <ScrollView>
         <StackLayout Orientation="Vertical" Spacing="10" BackgroundColor="LightGrey"
 >
-
-
             <Button x:Name="SaveButton" Text="Save"
                     BorderColor="LightGrey"
                     BorderWidth="8"
@@ -23,6 +21,7 @@
                         FontSize="16"
                         VerticalOptions="CenterAndExpand"
                         HorizontalTextAlignment="Start"/>
+
                 <Switch x:Name="Drama" AutomationId="Drama" 
                         ThumbColor="DarkSlateGrey" 
                         OnColor="DarkSlateGrey"
@@ -35,7 +34,6 @@
                     ThumbColor="DarkSlateGrey"
                     OnColor="DarkSlateGrey"/>
             </StackLayout>
-
 
             <StackLayout Orientation="Horizontal" Padding="10,10" Spacing="20">
                 <Label Text="Fiction" VerticalOptions="Center"
