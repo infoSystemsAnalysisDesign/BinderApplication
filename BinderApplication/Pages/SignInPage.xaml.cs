@@ -12,7 +12,9 @@ public partial class SignInPage : ContentPage
     public SignInPage()
 	{
         InitializeComponent();
-	}
+        NavigationPage.SetHasNavigationBar(this, false);
+
+    }
 
     private async void OnSignInButtonClicked(object sender, EventArgs e)
     {
