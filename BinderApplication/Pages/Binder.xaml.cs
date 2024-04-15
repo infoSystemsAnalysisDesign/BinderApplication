@@ -9,6 +9,14 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Diagnostics;
 using System.Windows.Input;
 
+/*
+Edit Entry Color:
+BackgroundColor = Color.FromRgba(221, 221, 221, 255)
+
+Delete Entry Color:
+BackgroundColor = Color.FromRgba(153, 153, 153, 255),
+*/
+
 
 namespace BinderApplication.Pages
 {
@@ -19,14 +27,12 @@ namespace BinderApplication.Pages
 
         public Binder()
         {
-            UpdateDisplay();
             InitializeComponent();
             journalEntries = new List<JournalEntryModel>();
-            BindingContext = this;
-
+            UpdateDisplay();
         }
 
-        public Binder(JournalEntryModel journalEntry) : this() //construt. to get from other page
+        public Binder(JournalEntryModel journalEntry) : this() //constructor to get from other page
         {
             AddJournalEntry(journalEntry);
         }
@@ -36,6 +42,7 @@ namespace BinderApplication.Pages
             journalEntries.Add(entry);
             UpdateDisplay();
         }
+
         protected override void OnAppearing()
         {
             base.OnAppearing();
@@ -48,20 +55,28 @@ namespace BinderApplication.Pages
             var client = new MongoClient("mongodb://Binder:AlsoBinder1@ac-clelo6g-shard-00-00.ibrxa6e.mongodb.net:27017,ac-clelo6g-shard-00-01.ibrxa6e.mongodb.net:27017,ac-clelo6g-shard-00-02.ibrxa6e.mongodb.net:27017/?ssl=true&replicaSet=atlas-i5m36b-shard-0&authSource=admin&retryWrites=true&w=majority");
             var database = client.GetDatabase("Binder");
             var journalCollection = database.GetCollection<BsonDocument>("Journal");
-            
+
             var dbLogin = DatabaseLogin.Instance;
             string storedEmail = dbLogin.GetEmail();
             var navigateButton = new Button
             {
-                Text = "Add Journal Entry"
+                Text = "Add Journal Entry",
+                FontAttributes = FontAttributes.Bold,
+                BackgroundColor = Color.FromRgba(153, 153, 153, 255),
+                TextColor = Color.FromRgba(0, 0, 0, 255)
             };
             navigateButton.Clicked += async (sender, args) =>
             {
                 await Navigation.PushAsync(new JournalEntry(this));
             };
 
-            StackLayout mainStackLayout = new StackLayout();
-            
+            var mainStackLayout = new StackLayout
+            {
+                Padding = new Thickness(10),
+                Spacing = 15,
+                BackgroundColor = Color.FromRgba(221, 221, 221, 255) // Set background color of the page to match the edit button
+            };
+
             mainStackLayout.Children.Add(navigateButton);
 
             var filter = Builders<BsonDocument>.Filter.Eq("Email", storedEmail);
@@ -78,26 +93,44 @@ namespace BinderApplication.Pages
                         var date = userJournal["Date"].ToUniversalTime().ToString("yyyy-MM-dd HH:mm");
                         var textNotes = userJournal["Entry"].AsString;
 
-                        string titleId = title;
+                        var titleLabel = new Label
+                        {
+                            Text = $"Title: {title}",
+                            FontAttributes = FontAttributes.Bold, // Making the title bold
+                            Margin = new Thickness(0, 0, 0, 5), // Adding margin at the bottom for spacing
+                            LineHeight = 1.2 // Adjust line spacing
+                        };
+                        var dateLabel = new Label
+                        {
+                            Text = $"Date: {date}",
+                            FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Label)), // Setting smaller font size for date
+                            Margin = new Thickness(0, 0, 0, 5), // Adding margin at the bottom for spacing
+                            LineHeight = 1.2 // Adjust line spacing
+                        };
+                        var entryLabel = new Label
+                        {
+                            Text = $"Entry: {textNotes}",
+                            Margin = new Thickness(0, 0, 0, 10), // Adding margin at the bottom for spacing
+                            LineHeight = 1.2 // Adjust line spacing
+                        };
 
-                        // Create labels for each journal entry and add them to the stack layout
-                        var titleLabel = new Label { Text = $"Title: {title}" };
-                        var dateLabel = new Label { Text = $"Date: {date}" };
-                        var entryLabel = new Label { Text = $"Entry: {textNotes}" };
 
-                        var editButton = new Button 
-                        { 
-                            Text = "Edit Entry", 
+                        var editButton = new Button
+                        {
+                            Text = "Edit Entry",
+                            BackgroundColor = Color.FromRgba(221, 221, 221, 255), // Light gray background color for edit button
+                            TextColor = Color.FromRgba(0, 0, 0, 255) // Black text color for edit button
                         };
                         editButton.Clicked += async (sender, args) =>
                         {
                             await Navigation.PushAsync(new JournalEntry(this, title, textNotes));
                         };
 
-
-                        var deleteButton = new Button 
-                        { 
-                            Text = "Delete Entry" 
+                        var deleteButton = new Button
+                        {
+                            Text = "Delete Entry",
+                            BackgroundColor = Color.FromRgba(153, 153, 153, 255), // Darker gray background color for delete button
+                            TextColor = Color.FromRgba(0, 0, 0, 255) // Black text color for delete button
                         };
                         deleteButton.Clicked += async (sender, args) =>
                         {
@@ -114,47 +147,43 @@ namespace BinderApplication.Pages
                             }
                         };
 
-                        // Add some padding between each entry
-                        var padding = new Thickness(0, 5);
+                        var buttonStackLayout = new StackLayout
+                        {
+                            Orientation = StackOrientation.Horizontal,
+                            Spacing = 10 // Adjust spacing between buttons as needed
+                        };
+                        buttonStackLayout.Children.Add(editButton);
+                        buttonStackLayout.Children.Add(deleteButton);
 
-                        // Add the labels to the stack layout
-                        mainStackLayout.Children.Add(titleLabel);
-                        mainStackLayout.Children.Add(dateLabel);
-                        mainStackLayout.Children.Add(entryLabel);
-                        mainStackLayout.Children.Add(editButton);
-                        mainStackLayout.Children.Add(deleteButton);
+                        // Create a Frame for each journal entry with a gray background
+                        var entryFrame = new Frame
+                        {
+                            BackgroundColor = Color.FromRgba(239, 239, 239, 255), // Gray background color for each journal entry
+                            CornerRadius = 10, // Rounded corners
+                            Margin = new Thickness(10) // Margin for spacing between entries
+                        };
 
-                        // Add padding
-                        mainStackLayout.Children.Add(new BoxView { HeightRequest = 10 });
+                        // Add labels and button layout to the frame
+                        entryFrame.Content = new StackLayout
+                        {
+                            Children = { titleLabel, dateLabel, entryLabel, buttonStackLayout }
+                        };
+
+                        mainStackLayout.Children.Add(entryFrame);
                     }
-                }
-                else
-                {
-                    // No entries found message
-                    var noEntriesLabel = new Label { Text = "No journal entries found." };
-                    mainStackLayout.Children.Add(noEntriesLabel);
+
                 }
             }
             catch (Exception ex)
             {
-                // Display error message if there's an exception
                 var errorLabel = new Label { Text = $"Error retrieving journal entries: {ex.Message}" };
                 mainStackLayout.Children.Add(errorLabel);
             }
-            // Create a ScrollView and add the stackLayout to it
+
             var scrollView = new ScrollView();
             scrollView.Content = mainStackLayout;
 
-            // Set the content of the page to the scrollView
             Content = scrollView;
         }
-
-
-        private void OnJournalEntryClicked(object sender, EventArgs e)
-        {
-            Navigation.PushAsync(new JournalEntry(this));
-        }
-
     }
 }
-
