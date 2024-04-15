@@ -2,6 +2,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              BackgroundColor="Gray"
              NavigationPage.IconColor="Gray"
+             Shell.BackgroundColor="Gray"
+             Shell.TabBarBackgroundColor="Grey"
              x:Class="BinderApplication.Pages.JournalEntry">
 
     <StackLayout Margin="20"
