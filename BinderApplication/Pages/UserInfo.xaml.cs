@@ -126,10 +126,20 @@ namespace BinderApplication.Pages
                         HeightRequest = 40,
                         WidthRequest = 350
                     };
+      
+                    var backButton = new Button 
+                    { Text = "Sign Out", Margin = new Thickness(10), 
+                        BackgroundColor = Color.FromHex("#696969"), 
+                        TextColor = Color.FromHex("#ffffff"), 
+                        FontSize = 22, // Set button color to dim grey
+                    };
+                    backButton.Clicked += async (s, e) =>
+                    {
+                        // Reset the main page of your application to SignInPage
+                        Application.Current.MainPage = new NavigationPage(new SignInPage());
+                    };
 
-                     
-                    var backButton = new Button { Text = "Sign Out", Margin = new Thickness(10), BackgroundColor = Color.FromHex("#696969"), TextColor = Color.FromHex("#ffffff"), FontSize = 22, }; // Set button color to dim grey
-                    backButton.Clicked += (s, e) => Navigation.PushAsync(new SignInPage());
+
 
 
                     // Add the button to the stack layout
