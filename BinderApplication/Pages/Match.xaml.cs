@@ -1,6 +1,7 @@
 using Microsoft.Maui.Controls;
 using System;
 using BinderApplication.Database;
+using Microsoft.Maui.Controls.Shapes;
 
 namespace BinderApplication.Pages
 {
@@ -91,9 +92,22 @@ namespace BinderApplication.Pages
                         WidthRequest = 200,
                         HeightRequest = 300,
                         Aspect = Aspect.AspectFit,
-                        VerticalOptions = LayoutOptions.Start // Align the image to the top
+                        VerticalOptions = LayoutOptions.Start, // Align the image to the top
                     };
                     frontImage.SetBinding(Image.SourceProperty, "VolumeInfo.ImageLinks.Thumbnail");
+
+                    ////Padding for book covers
+                    //var bookCoverBorder = new Border
+                    //{
+                    //    Stroke = Brush.Black,
+                    //    StrokeThickness = 5,
+                    //    StrokeShape = new RoundRectangle(),
+                    //    Padding = new Thickness(8, 8),
+                    //    HorizontalOptions = LayoutOptions.Center,
+                    //    Content = frontImage
+                    //};
+                    //this.Content = bookCoverBorder;
+
 
                     // Add tap gesture recognizer to the image
                     var tapGestureRecognizer = new TapGestureRecognizer();
@@ -162,13 +176,13 @@ namespace BinderApplication.Pages
 
                     var likeButton = new Button
                     {
-                        BackgroundColor = Color.FromHex("#90EE90"),
-                        Text = "Like",
-                        TextColor= Color.FromHex("#000000"),
-                        BorderColor = Color.FromHex("#000000"),
+                        BackgroundColor = Color.FromHex("#147efb"),
+                        Text = "u up?",
+                        TextColor = Color.FromHex("#FFFFFF"),
+                        BorderColor = Color.FromHex("#147efb"),
                         BorderWidth = 1, // Add this line
-                        Margin = new Thickness(0, 0, 10, 0), // Add margin to the right to create space between buttons
-                        WidthRequest = 100, // Set width request to make the buttons bigger
+                        Margin = new Thickness(0, 0, -10, 0), // Add margin to the right to create space between buttons
+                        WidthRequest = 150, // Set width request to make the buttons bigger
                         HeightRequest = 50, // Set height request to make the buttons bigger
                         HorizontalOptions = LayoutOptions.End,
                         VerticalOptions = LayoutOptions.End
@@ -177,13 +191,13 @@ namespace BinderApplication.Pages
 
                     var hateButton = new Button
                     {
-                        BackgroundColor = Color.FromHex("#FF474C"),
-                        Text = "Hate",
-                        TextColor = Color.FromHex("#000000"),
-                        BorderColor = Color.FromHex("#000000"),
+                        BackgroundColor = Color.FromHex("#53d769"),
+                        Text = "#ghosted",
+                        TextColor = Color.FromHex("#FFFFFF"),
+                        BorderColor = Color.FromHex("#53d769"),
                         BorderWidth = 1, // Add this line
-                        Margin = new Thickness(0, 0, 10, 0), // Add margin to the right to create space between buttons
-                        WidthRequest = 100, // Set width request to make the buttons bigger
+                        Margin = new Thickness(31, 0, 0, 0), // Add margin to the right to create space between buttons
+                        WidthRequest = 150, // Set width request to make the buttons bigger
                         HeightRequest = 50, // Set height request to make the buttons bigger
                         HorizontalOptions = LayoutOptions.Start,
                         VerticalOptions = LayoutOptions.End
