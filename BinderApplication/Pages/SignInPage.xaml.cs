@@ -4,6 +4,9 @@ using BinderApplication.Database;
 using BinderApplication.Services;
 using BinderApplication.Pages;
 using BinderApplication.States;
+using System.Security.Cryptography;
+using System.Text;
+
 
 namespace BinderApplication;
 
@@ -34,9 +37,16 @@ public partial class SignInPage : ContentPage
             }
 
 
-            // Check if there is a user with the provided email and password
-            var filter = Builders<BsonDocument>.Filter.Eq("Email", email.Text) & Builders<BsonDocument>.Filter.Eq("Password", password.Text);
+            byte[] hashedPasswordBytes = DatabaseLogin.Instance.CalculateSHA256(password.Text);
+            string hashedPassword = BitConverter.ToString(hashedPasswordBytes).Replace("-", "");
+
+            // Check if there is a user with the provided email and hashed password
+            var filter = Builders<BsonDocument>.Filter.Eq("Email", email.Text) & Builders<BsonDocument>.Filter.Eq("Password", hashedPassword);
             var user = await usersCollection.Find(filter).FirstOrDefaultAsync();
+
+            // Check if there is a user with the provided email and password
+           // var filter = Builders<BsonDocument>.Filter.Eq("Email", email.Text) & Builders<BsonDocument>.Filter.Eq("Password", password.Text);
+           // var user = await usersCollection.Find(filter).FirstOrDefaultAsync();
 
             if (user != null)
             {
