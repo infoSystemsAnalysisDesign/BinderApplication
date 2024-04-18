@@ -29,8 +29,16 @@ public partial class SignUpPage : ContentPage
             await DisplayAlert("Sign Up Failed", "Please Enter Your Information", "OK");
             return;
         }
-
-
+        if   (  phoneNumber.Text.Length != 10 || !phoneNumber.Text.All(char.IsDigit))
+        {
+            await DisplayAlert("Sign Up Failed", "Please enter a valid 10-digit phone number.", "OK");
+            return;
+        }
+        if (!email.Text.Contains("@") || !email.Text.Contains("."))
+        {
+            await DisplayAlert("Sign Up Failed", "Please enter a valid email adress.", "OK");
+            return;
+        }
 
         // Check if the email already exists in the database
         var filter = Builders<BsonDocument>.Filter.Eq("Email", email.Text);
