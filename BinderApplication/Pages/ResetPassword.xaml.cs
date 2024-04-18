@@ -41,6 +41,10 @@ public partial class ResetPassword : ContentPage
             return false;
         }
 
+        //Hash the new password
+        byte[] hashedPassword = dbLogin.CalculateSHA256(newPassword.Text);
+        string hashedPasswordString = BitConverter.ToString(hashedPassword).Replace("-", "");
+
         //Database Connection
         var database = dbConnection.GetDatabase();
         var usersCollection = database.GetCollection<BsonDocument>("Login");
@@ -51,7 +55,7 @@ public partial class ResetPassword : ContentPage
 
         if (user != null)
         {
-            var update = Builders<BsonDocument>.Update.Set("Password", newPassword.Text);
+            var update = Builders<BsonDocument>.Update.Set("Password", hashedPasswordString);
             await usersCollection.UpdateOneAsync(filter, update);
             await DisplayAlert("Password Change SUCCESS", "Password has been changed successfully.", "OK");
             return true;
@@ -62,4 +66,5 @@ public partial class ResetPassword : ContentPage
             return false;
         }
     }
+
 }

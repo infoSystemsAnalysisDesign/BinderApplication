@@ -152,8 +152,8 @@ namespace BinderApplication.Pages
                     mainStackLayout.Children.Add(emailLabel);
                     mainStackLayout.Children.Add(phoneNumberHeader);
                     mainStackLayout.Children.Add(phoneNumberLabel);
-                    mainStackLayout.Children.Add(passwordHeader);
-                    mainStackLayout.Children.Add(passwordLabel);
+                   // mainStackLayout.Children.Add(passwordHeader);
+                   // mainStackLayout.Children.Add(passwordLabel);
                 }
                 else
                 {
