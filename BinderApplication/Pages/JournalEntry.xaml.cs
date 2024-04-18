@@ -47,7 +47,7 @@ namespace BinderApplication.Pages
             // Check if a journal with the same title already exists
             bool titleExists = dbJournal.CheckTitleExists(entryTitle.Text);
 
-            if (titleExists)
+            if (titleExists && !editMode)
             {
                 // Display an alert if a journal with the same title exists
                 await DisplayAlert("Title Exists", "You already have a journal with that title, please rename it", "OK");
