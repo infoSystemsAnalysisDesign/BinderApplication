@@ -57,15 +57,15 @@ public partial class Genres : ContentPage
         }
     }
 
-    private void OnSaveButtonClicked(object sender, EventArgs e)
+    private async void OnSaveButtonClicked(object sender, EventArgs e)
 	{
         if (switchCount < 4)
         {
-            DisplayAlert("Oops", "Please select at least 4 genres!", "OK");
+            await DisplayAlert("Oops", "Please select at least 4 genres!", "OK");
         }
         else
         {
-            DisplayAlert("Success", "Save Success", "OK");
+            await DisplayAlert("Success", "Save Success", "OK");
 
             //Code this bad should get me put in prison
             dbGenre.UpdateGenresForAccount(
