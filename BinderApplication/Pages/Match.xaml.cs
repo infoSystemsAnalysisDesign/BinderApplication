@@ -217,36 +217,27 @@ namespace BinderApplication.Pages
 
             carouselView.SetBinding(CarouselView.ItemsSourceProperty, "BookItems");
             ((Grid)Content).Children.Add(carouselView);
+
         }
-
-
-
-        private bool buttonClicked = false;
 
         private async void LikedButton(object sender, EventArgs e)
         {
             try
             {
-                if (!buttonClicked)
-                {
-                    buttonClicked = true;
+                var dbLogin = DatabaseLogin.Instance;
+                var currentBook = (BookModel)carouselView.CurrentItem;
+                currentBook.Email = dbLogin.GetEmail();
 
-                    var dbLogin = DatabaseLogin.Instance;
-                    var currentBook = (BookModel)carouselView.CurrentItem;
-                    currentBook.Email = dbLogin.GetEmail();
-
-                    await databaseConnection.SaveCarouselLiked(currentBook);
-                    await DisplayAlert("HubbaHubba", "You liked me!", "OK ;)");
-                }
-                else
-                {
-                    // Button already clicked, do nothing
-                    await DisplayAlert("Thirsty Much?", "You already liked me!", "OK :P");
-               
-                }
+                await databaseConnection.SaveCarouselLiked(currentBook);
+                await DisplayAlert("HubbaHubba", "You liked me!", "OK ;)");
+            }
+            catch (MongoWriteException)
+            {
+                await DisplayAlert("Thirsty Much?", "You already liked me!", "OK :P");
             }
             catch (Exception ex)
             {
+
                 await DisplayAlert("Error", $"An error occurred: {ex.Message}", "OK");
             }
         }
@@ -255,28 +246,23 @@ namespace BinderApplication.Pages
         {
             try
             {
-                if (!buttonClicked)
-                {
-                    buttonClicked = true;
 
-                    var dbLogin = DatabaseLogin.Instance;
-                    var currentBook = (BookModel)carouselView.CurrentItem;
-                    currentBook.Email = dbLogin.GetEmail();
-                    await databaseConnection.SaveCarouselHate(currentBook);
-                    await DisplayAlert("Nooooo!", "You hate me?", "OK :(");
-                }
-                else
-                {
-                    // Button already clicked, do nothing
-                    await DisplayAlert("You really hate me that much?", "You already told me!", "OK :'(");
-
-                }
+                var dbLogin = DatabaseLogin.Instance;
+                var currentBook = (BookModel)carouselView.CurrentItem;
+                currentBook.Email = dbLogin.GetEmail();
+                await databaseConnection.SaveCarouselHate(currentBook);
+                await DisplayAlert("Nooooo!", "You hate me?", "OK :(");
+            }
+            catch (MongoWriteException)
+            {
+                await DisplayAlert("You really hate me that much?", "You already told me!", "OK :'(");
             }
             catch (Exception ex)
             {
                 await DisplayAlert("Error", $"An error occurred: {ex.Message}", "OK");
             }
         }
+
+
     }
 }
-
