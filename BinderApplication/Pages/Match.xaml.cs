@@ -2,6 +2,8 @@ using Microsoft.Maui.Controls;
 using System;
 using BinderApplication.Database;
 using Microsoft.Maui.Controls.Shapes;
+using ZstdSharp.Unsafe;
+using MongoDB.Driver;
 
 namespace BinderApplication.Pages
 {
@@ -219,15 +221,29 @@ namespace BinderApplication.Pages
 
 
 
+        private bool buttonClicked = false;
+
         private async void LikedButton(object sender, EventArgs e)
         {
             try
             {
-                var dbLogin = DatabaseLogin.Instance;
-                var currentBook = (BookModel)carouselView.CurrentItem;
-                currentBook.Email = dbLogin.GetEmail();
-                await databaseConnection.SaveCarouselLiked(currentBook);
-                await DisplayAlert("HubbaHubba", "You liked me!", "OK ;)");
+                if (!buttonClicked)
+                {
+                    buttonClicked = true;
+
+                    var dbLogin = DatabaseLogin.Instance;
+                    var currentBook = (BookModel)carouselView.CurrentItem;
+                    currentBook.Email = dbLogin.GetEmail();
+
+                    await databaseConnection.SaveCarouselLiked(currentBook);
+                    await DisplayAlert("HubbaHubba", "You liked me!", "OK ;)");
+                }
+                else
+                {
+                    // Button already clicked, do nothing
+                    await DisplayAlert("Thirsty Much?", "You already liked me!", "OK :P");
+               
+                }
             }
             catch (Exception ex)
             {
@@ -239,11 +255,22 @@ namespace BinderApplication.Pages
         {
             try
             {
-                var dbLogin = DatabaseLogin.Instance;
-                var currentBook = (BookModel)carouselView.CurrentItem;
-                currentBook.Email = dbLogin.GetEmail();
-                await databaseConnection.SaveCarouselHate(currentBook);
-                await DisplayAlert("Nooooo!", "You hate me?", "OK :(");
+                if (!buttonClicked)
+                {
+                    buttonClicked = true;
+
+                    var dbLogin = DatabaseLogin.Instance;
+                    var currentBook = (BookModel)carouselView.CurrentItem;
+                    currentBook.Email = dbLogin.GetEmail();
+                    await databaseConnection.SaveCarouselHate(currentBook);
+                    await DisplayAlert("Nooooo!", "You hate me?", "OK :(");
+                }
+                else
+                {
+                    // Button already clicked, do nothing
+                    await DisplayAlert("You really hate me that much?", "You already told me!", "OK :'(");
+
+                }
             }
             catch (Exception ex)
             {
