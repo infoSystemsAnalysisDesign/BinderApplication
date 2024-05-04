@@ -49,17 +49,47 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\background1.jpeg" />
+	  <None Remove="Resources\Images\background2.jpeg" />
 	  <None Remove="Resources\Images\tab_binder.png" />
 	  <None Remove="Resources\Images\tab_match.png" />
 	  <None Remove="Resources\Images\tab_profile.png" />
+	  <None Remove="Resources\Images\tuesday.jpg" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+		<PackageReference Include="MongoDB.Bson" Version="2.23.1" />
+		<PackageReference Include="MongoDB.Driver" Version="2.23.1" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Pages\JournalEntry.xaml.cs">
+	    <DependentUpon>JournalEntry.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\History.xaml.cs">
+	    <DependentUpon>History.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\Genres.xaml.cs">
+	    <DependentUpon>Genres.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\Liked.xaml.cs">
+	    <DependentUpon>Liked.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Pages\JournalEntry.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\Binder.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\History.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\Genres.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\Match.xaml">
@@ -68,10 +98,10 @@
 	  <MauiXaml Update="Pages\Profile.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Pages\SignInPage.xaml">
+	  <MauiXaml Update="Pages\Liked.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Pages\SignUpPage.xaml">
+	  <MauiXaml Update="Pages\ResetPassword.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

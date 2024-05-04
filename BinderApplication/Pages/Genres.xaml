@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             NavigationPage.IconColor="Gray"
+             Shell.BackgroundColor="Gray"
+             Shell.TabBarBackgroundColor="Grey"
+             x:Class="BinderApplication.Pages.Genres"
+             Title="Genres">
+    <ScrollView>
+        <StackLayout Orientation="Vertical" Spacing="10" BackgroundColor="LightGrey"
+>
+            <Button x:Name="SaveButton" Text="Save"
+                    BorderColor="LightGrey"
+                    BorderWidth="8"
+                    TextColor="White"
+                    FontSize="20"
+                    BackgroundColor="DarkSlateGrey"
+                    Padding="20,20"
+                    CornerRadius="20"/>
+
+            <StackLayout Orientation="Horizontal" Padding="10,10" Spacing="20">
+                <Label Text="Drama"
+                       WidthRequest="85"
+                        FontSize="16"
+                        VerticalOptions="CenterAndExpand"
+                        HorizontalTextAlignment="Start"/>
+
+                <Switch x:Name="Drama" AutomationId="Drama" 
+                        ThumbColor="DarkSlateGrey" 
+                        OnColor="DarkSlateGrey"
+                        VerticalOptions="CenterAndExpand"/>
+                <BoxView WidthRequest="45" Color="LightGrey"/>
+                <Label Text="Essay" VerticalOptions="Center"                        
+                       WidthRequest="85"
+                   FontSize="16" HorizontalTextAlignment="Start"/>
+                <Switch x:Name="Essay" AutomationId="Essay" 
+                    ThumbColor="DarkSlateGrey"
+                    OnColor="DarkSlateGrey"/>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" Padding="10,10" Spacing="20">
+                <Label Text="Fiction" VerticalOptions="Center"
+                       WidthRequest="85"
+                   FontSize="16" HorizontalTextAlignment="Start"/>
+                <Switch x:Name="Fiction" AutomationId="Fiction" 
+                    ThumbColor="DarkSlateGrey"
+                    OnColor="DarkSlateGrey"/>
+                <BoxView WidthRequest="45" Color="LightGrey"/>
+                <Label Text="History" VerticalOptions="Center"
+                       WidthRequest="85"
+                   FontSize="16" HorizontalTextAlignment="Start"/>
+                <Switch x:Name="History" AutomationId="History" 
+                    ThumbColor="DarkSlateGrey"
+                    OnColor="DarkSlateGrey"/>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" Padding="10,10" Spacing="20">
+                <Label Text="Horror" VerticalOptions="Center" 
+                       WidthRequest="85"
+                   FontSize="16" HorizontalTextAlignment="Start"/>
+                <Switch x:Name="Horror" AutomationId="Horror" 
+                    ThumbColor="DarkSlateGrey"
+                    OnColor="DarkSlateGrey"/>
+                <BoxView WidthRequest="45" Color="LightGrey"/>
+                <Label Text="NonFiction" VerticalOptions="Center" 
+                       WidthRequest="85"
+                   FontSize="16" HorizontalTextAlignment="Start"/>
+                <Switch x:Name="NonFiction" AutomationId="NonFiction" 
+                    ThumbColor="DarkSlateGrey"
+                    OnColor="DarkSlateGrey"/>
+            </StackLayout>
+
+
+            <StackLayout Orientation="Horizontal" Padding="10,10" Spacing="20">
+
+                <Label Text="Novel" VerticalOptions="Center" 
+                       WidthRequest="85"
+                   FontSize="16" HorizontalTextAlignment="Start"/>
+                <Switch x:Name="Novel" AutomationId="Novel" 
+                    ThumbColor="DarkSlateGrey"
+                    OnColor="DarkSlateGrey"/>
+                <BoxView WidthRequest="45" Color="LightGrey"/>
+
+                <Label Text="Philosophy" VerticalOptions="Center" 
+                       WidthRequest="85"
+                   FontSize="16" HorizontalTextAlignment="Start"/>
+                <Switch x:Name="Philosophy" AutomationId="Philosophy" 
+                    ThumbColor="DarkSlateGrey"
+                    OnColor="DarkSlateGrey"/>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" Padding="10,10" Spacing="20">
+                <Label Text="Poetry" VerticalOptions="Center" 
+                       WidthRequest="85"
+                   FontSize="16" HorizontalTextAlignment="Start"/>
+                <Switch x:Name="Poetry" AutomationId="Poetry" 
+                    ThumbColor="DarkSlateGrey"
+                    OnColor="DarkSlateGrey"/>
+                <BoxView WidthRequest="45" Color="LightGrey"/>
+                <Label Text="Politics" VerticalOptions="Center" 
+                       WidthRequest="85"
+                   FontSize="16" HorizontalTextAlignment="Start"/>
+                <Switch x:Name="Politics" AutomationId="Politics" 
+                    ThumbColor="DarkSlateGrey" 
+                    OnColor="DarkSlateGrey" />
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" Padding="10,10" Spacing="15">
+
+                <Label Text="Psychology" VerticalOptions="Center" 
+                       WidthRequest="85"
+                   FontSize="16" HorizontalTextAlignment="Start"/>
+                <Switch x:Name="Psychology" AutomationId="Psychology" 
+                    ThumbColor="DarkSlateGrey"
+                    OnColor="DarkSlateGrey"/>
+                <BoxView WidthRequest="45" Color="LightGrey"/>
+
+                <Label Text="Romance" VerticalOptions="Center" 
+                       WidthRequest="85"
+                   FontSize="16" HorizontalTextAlignment="Start"/>
+                <Switch x:Name="Romance" AutomationId="Romance" 
+                    ThumbColor="DarkSlateGrey"
+                    OnColor="DarkSlateGrey"/>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" Padding="10,10" Spacing="20">
+
+                <Label Text="Science" VerticalOptions="Center" 
+                       WidthRequest="85"
+                   FontSize="16" HorizontalTextAlignment="Start"/>
+                <Switch x:Name="Science" AutomationId="Science" 
+                    ThumbColor="DarkSlateGrey"
+                    OnColor="DarkSlateGrey"/>
+                <BoxView WidthRequest="45" Color="LightGrey"/>
+
+                <Label Text="Spirituality" VerticalOptions="Center" 
+                       WidthRequest="85"
+                   FontSize="16" HorizontalTextAlignment="Start"/>
+                <Switch x:Name="Spirituality" AutomationId="Spirituality" 
+                    ThumbColor="DarkSlateGrey"
+                    OnColor="DarkSlateGrey"/>
+            </StackLayout>
+
+
+            <StackLayout Orientation="Horizontal" Padding="10,10" Spacing="20">
+
+                <Label Text="Suspense" VerticalOptions="Center" 
+                       WidthRequest="85"
+                   FontSize="16" HorizontalTextAlignment="Start"/>
+                <Switch x:Name="Suspense" AutomationId="Suspense" 
+                    ThumbColor="DarkSlateGrey"
+                    OnColor="DarkSlateGrey"/>
+                <BoxView WidthRequest="45" Color="LightGrey"/>
+                <Label Text="Thriller" VerticalOptions="Center" 
+                       WidthRequest="85"
+                   FontSize="16" HorizontalTextAlignment="Start"/>
+                <Switch x:Name="Thriller" AutomationId="Thriller" 
+                    ThumbColor="DarkSlateGrey"
+                    OnColor="DarkSlateGrey"/>
+            </StackLayout>
+
+            <Label>
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label"
+                         Binding="{Binding Source={x:Reference styleSwitch}, Path=IsToggled}"
+                         Value="True">
+                        <Setter Property="FontAttributes" Value="Italic, Bold" />
+                        <Setter Property="FontSize" Value="18"/>
+                    </DataTrigger>
+                </Label.Triggers>
+            </Label>
+        </StackLayout>
+    </ScrollView>
+
+</ContentPage>

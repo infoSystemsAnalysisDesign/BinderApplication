@@ -1,5 +1,7 @@
 ﻿using Microsoft.Maui.Platform;
 using BinderApplication.Handlers;
+using BinderApplication.Database;
+using BinderApplication.Pages;
 
 namespace BinderApplication;
 
@@ -8,7 +10,11 @@ public partial class App : Application
     public App()
     {
         InitializeComponent();
+        //var databaseConnection = DatabaseConnection.Instance;   //technically not needed unless we ever have sign-in permanence
+        MainPage = new NavigationPage(new SignInPage());
 
+        var dbGenre = DatabaseGenre.Instance;
+       
         Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping(nameof(BorderlessEntry), (handler, view) =>
         {
             if (view is BorderlessEntry)
@@ -20,8 +26,14 @@ public partial class App : Application
 #endif
             }
         });
-
-
-        MainPage = new AppShell();
     }
+
+    //     protected override void OnStart()
+    //{
+    //    // Handle when your app starts
+
+    //    // Set the initial main page to SignInPage
+    //    MainPage = new NavigationPage(new SignInPage());
+    //}
+
 }

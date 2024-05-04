@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<!--<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BinderApplication.MainPage">
@@ -38,4 +38,25 @@
         </VerticalStackLayout>
     </ScrollView>
 
-</ContentPage>
+</ContentPage>-->
+
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:BinderApplication.Pages"
+       x:Class="BinderApplication.Binder">
+
+    <TabBar x:Name="Tabs">
+        <Tab Title="Match" Icon="tab_match.png">
+            <ShellContent ContentTemplate="{DataTemplate local:Match}" />
+        </Tab>
+        <Tab Title="Binder" Icon="tab_binder.png">
+            <ShellContent ContentTemplate="{DataTemplate local:Binder}" />
+        </Tab>
+        <Tab Title="Profile" Icon="tab_profile.png">
+            <ShellContent ContentTemplate="{DataTemplate local:Profile}" />
+        </Tab>
+    </TabBar>
+
+</Shell>
+
+
