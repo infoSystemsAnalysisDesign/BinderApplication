@@ -107,7 +107,6 @@ namespace BinderApplication.Database
             string email = dbLogin.GetEmail();
             var collection = database.GetCollection<BsonDocument>(email + "-CurrentDaysBooks");
 
-            // Retrieve the date document
             var dateFilter = Builders<BsonDocument>.Filter.Exists("DateEntry");
             var dateDocument = collection.Find(dateFilter).FirstOrDefault();
             DateTime? date = null;
@@ -116,7 +115,7 @@ namespace BinderApplication.Database
                 date = dateDocument["DateEntry"].ToUniversalTime();
             }
 
-            // Retrieve the book documents
+            //Retrieve the books
             var bookFilter = Builders<BsonDocument>.Filter.Not(dateFilter);
             var bookDocuments = collection.Find(bookFilter).ToList();
 
